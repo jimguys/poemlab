@@ -11,6 +11,7 @@
   "license": "BSD",
   "dependencies": {
     "socket.io": "~0.9.16",
-    "express": "~3.3.7"
+    "express": "~3.3.7",
+    "escape-html": "~1.0.0"
   }
 }
