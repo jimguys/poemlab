@@ -1,17 +1,15 @@
 {
-  "name": "cuddlychang",
-  "version": "0.0.0",
-  "description": "Collaborative Poetry Engine",
-  "main": "app.js",
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "repository": "",
-  "author": "",
-  "license": "BSD",
   "dependencies": {
-    "socket.io": "~0.9.16",
-    "express": "~3.3.7",
-    "escape-html": "~1.0.0"
+    "express": "3.3.8",
+    "jade": "*",
+    "underscore": "~1.5.2",
+    "escape-html": "~1.0.0",
+    "socket.io": "~0.9.16"
   }
 }

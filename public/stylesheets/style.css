@@ -1,0 +1,21 @@
+body {
+  padding: 50px;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+input {
+  margin: 1px;
+}
+
+input[type=submit] {
+  padding: 2px 10px;
+}
+
+li {
+  list-style: none;
+}

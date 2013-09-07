@@ -4,7 +4,7 @@ socket.on('newline', function (poemLine) {
 	$('.poem').append('<div>' + poemLine + '</div>');
 });
 
-$('.newline-submit').click(function() {
+$('.newline-form').submit(function() {
 	socket.emit('submitline', $('.newline').val());
 	$('.newline').val('');
 });
