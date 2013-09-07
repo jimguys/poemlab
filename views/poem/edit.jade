@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1= poem.name
+  .poem
+  form.newline-form(action="javascript:void(0)")
+    input.newline(type="text", size=100)
+    input(type="submit", value="Post")
+
+  script(src="/socket.io/socket.io.js")
+  script(src="/js/vendor/jquery-1.10.2.min.js")
+  script(src="/js/client.js")

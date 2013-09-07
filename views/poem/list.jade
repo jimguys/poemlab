@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  h1 Poem List
+  ul
+    each poem in poems
+      li
+        a(href="/poem/#{poem.id}")= poem.name
