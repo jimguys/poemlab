@@ -10,6 +10,17 @@ exports.list = function(req, res) {
 }
 
 exports.edit = function(req, res) {
+  console.log('poems', poems);
   var poem = _.find(poems, function(p) { return p.id == req.params.id; });
-  res.render('poem/edit', { poem: poem })
+  res.render('poem/edit', { poem: poem });
+}
+
+exports.createform = function(req, res) {
+  res.render('poem/new');
+}
+
+exports.create = function(req, res) {
+  var poem = { id: poems.length + 1, name: req.body.name };
+  poems.push(poem);
+  res.redirect('/poem/' + poem.id);
 }
