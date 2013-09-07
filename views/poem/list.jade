@@ -6,3 +6,5 @@ block content
     each poem in poems
       li
         a(href="/poem/#{poem.id}")= poem.name
+  hr
+  a(href="/poem/new") New Poem

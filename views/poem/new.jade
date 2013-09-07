@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+  h1 New Poem
+  form(action="/poem", method="post")
+    input(type="text", name="name")
+    input(type="submit", value="Start")

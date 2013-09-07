@@ -11,5 +11,7 @@ module.exports = function(app) {
   app.post('/register', register.post);
 
   app.get('/poem', poem.list);
+  app.get('/poem/new', poem.createform);
   app.get('/poem/:id', poem.edit); 
+  app.post('/poem', poem.create);
 };
