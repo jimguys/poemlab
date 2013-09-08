@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect('/');
 
 socket.on('newline', function (poemLine) {
 	$('.poem').append('<div>' + poemLine + '</div>');
