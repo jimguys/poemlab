@@ -10,6 +10,7 @@
     "jade": "*",
     "underscore": "~1.5.2",
     "escape-html": "~1.0.0",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "pg": "~2.6.0"
   }
 }
