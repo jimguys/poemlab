@@ -1,4 +1,4 @@
-Pocolabs 
+Pocolabs
 ===========
 
 Collaborative Poetry Engine
