@@ -3,8 +3,7 @@ var _ = require('underscore');
 var poems = [
   { id: 1, name: 'chon chon' },
   { id: 2, name: 'cuddly chang' },
-  { id: 3, name: 'billy grippa' },
-  { id: 4, name: 'francis egor' }
+  { id: 3, name: 'billy grippa' }
 ];
 
 exports.list = function(req, res) {
