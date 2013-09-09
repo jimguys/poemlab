@@ -1,3 +1,5 @@
+# Database Setup
+
 To create the database in PostgreSQL, run:
 
 ```
@@ -28,4 +30,12 @@ Now you should be able to connect to the newly created database with
 
 ```
 psql -U pocolab
+```
+
+# Database Export
+
+The schema.sql file can be created with this command, assuming certain configuration:
+
+```
+sudo -u postgres pg_dump -cOs pocolab > schema.sql
 ```
