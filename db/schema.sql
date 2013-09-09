@@ -8,20 +8,40 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+SET search_path = public, pg_catalog;
+
+ALTER TABLE ONLY public.poets_poems DROP CONSTRAINT poets_poems_poet_id_fkey;
+ALTER TABLE ONLY public.poets_poems DROP CONSTRAINT poets_poems_poem_id_fkey;
+ALTER TABLE ONLY public.lines DROP CONSTRAINT lines_poet_id_fkey;
+ALTER TABLE ONLY public.lines DROP CONSTRAINT lines_poem_id_fkey;
+ALTER TABLE ONLY public.poets_poems DROP CONSTRAINT poets_poems_pkey;
+ALTER TABLE ONLY public.poets DROP CONSTRAINT poets_pkey;
+ALTER TABLE ONLY public.poets DROP CONSTRAINT poets_name_key;
+ALTER TABLE ONLY public.poets DROP CONSTRAINT poets_email_key;
+ALTER TABLE ONLY public.poems DROP CONSTRAINT poems_pkey;
+ALTER TABLE ONLY public.lines DROP CONSTRAINT lines_pkey;
+DROP TABLE public.poets_poems;
+DROP TABLE public.poets;
+DROP SEQUENCE public.poet_id_seq;
+DROP TABLE public.poems;
+DROP SEQUENCE public.poem_id_seq;
+DROP TABLE public.lines;
+DROP SEQUENCE public.line_id_seq;
+DROP EXTENSION plpgsql;
+DROP SCHEMA public;
 --
--- Name: pocolab; Type: DATABASE; Schema: -; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE DATABASE pocolab WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+CREATE SCHEMA public;
 
 
-\connect pocolab
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
 
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
+COMMENT ON SCHEMA public IS 'standard public schema';
+
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -201,6 +221,17 @@ ALTER TABLE ONLY poets_poems
 
 ALTER TABLE ONLY poets_poems
     ADD CONSTRAINT poets_poems_poet_id_fkey FOREIGN KEY (poet_id) REFERENCES poets(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: -
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
 
 --
 -- PostgreSQL database dump complete
