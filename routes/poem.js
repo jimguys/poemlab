@@ -1,7 +1,17 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+	fs = require('fs'),
+	path = require('path'),
+	PoemsRepository = require('../lib/repositories/poems_repository.js');
 
-var PoemsRepository = require('../lib/repositories/poems_repository.js');
-var poemsRepo = new PoemsRepository();
+var dbConfig;
+if(fs.existsSync(path.join(__dirname, "../db/config.json"))) {
+	dbConfig = require("../db/config.json");
+} else {
+	console.log("The database config file was not found!");
+	process.exit(1);
+}
+
+var poemsRepo = new PoemsRepository(dbConfig);
 
 exports.list = function(req, res) {
 	poemsRepo.all(function(err, poems) {
