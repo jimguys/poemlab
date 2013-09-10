@@ -1,36 +1,33 @@
-var _ = require('underscore'),
-	fs = require('fs'),
-	path = require('path'),
-	PoemsRepository = require('../lib/repositories/poems_repository.js');
+var PoemsRepository = require("../lib/repositories/poems_repository");
 
-var dbConfig;
-if(fs.existsSync(path.join(__dirname, "../db/config.json"))) {
-	dbConfig = require("../db/config.json");
-} else {
-	console.log("The database config file was not found!");
-	process.exit(1);
-}
+module.exports = function(dbConfig) {
 
-var poemsRepo = new PoemsRepository(dbConfig);
+	var poemsRepo = new PoemsRepository(dbConfig);
 
-exports.list = function(req, res) {
-	poemsRepo.all(function(err, poems) {
-		res.render('poem/list', { poems: poems });
-	});
-};
+	return {
 
-exports.edit = function(req, res) {
-	poemsRepo.read(req.params.id, function(err, poem) {
-		res.render('poem/edit', { poem: poem });
-	});
-};
+		list: function list(req, res) {
+			poemsRepo.all(function(err, poems) {
+				res.render('poem/list', { poems: poems });
+			});
+		},
 
-exports.createform = function(req, res) {
-	res.render('poem/new');
-};
+		edit: function edit(req, res) {
+			poemsRepo.read(req.params.id, function(err, poem) {
+				res.render('poem/edit', { poem: poem });
+			});
+		},
 
-exports.create = function(req, res) {
-	poemsRepo.create({ name: req.body.name }, function(err, poem) {
-		res.redirect('/poem/' + poem.id);
-	});
+		createForm: function createForm(req, res) {
+			res.render('poem/new');
+		},
+
+		create: function create(req, res) {
+			poemsRepo.create({ name: req.body.name }, function(err, poem) {
+				res.redirect('/poem/' + poem.id);
+			});
+		}
+
+	};
+
 };

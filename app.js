@@ -34,7 +34,7 @@ server.listen(app.get('port'), function(){
 // socket.io
 io.sockets.on('connection', function (socket) {
 	socket.on('submitline', function (poemLine) {
-		var escapedLine = escape(poemLine);	
+		var escapedLine = escape(poemLine);
 		socket.emit('newline', escapedLine);
 		socket.broadcast.emit('newline', escapedLine);
 	});
