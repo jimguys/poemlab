@@ -1,8 +1,10 @@
 var PoemsRepository = require("../lib/repositories/poems_repository");
+var LinesRepository = require("../lib/repositories/lines_repository");
 
 module.exports = function(dbConfig) {
 
 	var poemsRepo = new PoemsRepository(dbConfig);
+	var linesRepo = new LinesRepository(dbConfig);
 
 	return {
 
@@ -13,8 +15,11 @@ module.exports = function(dbConfig) {
 		},
 
 		edit: function edit(req, res) {
-			poemsRepo.read(req.params.id, function(err, poem) {
-				res.render('poem/edit', { poem: poem });
+			var poemId = req.params.id;
+			poemsRepo.read(poemId, function(err, poem) {
+				linesRepo.forPoem(poemId, function(err, lines) {
+					res.render('poem/edit', { poem: poem, lines: lines });
+				});
 			});
 		},
 
