@@ -4,8 +4,6 @@ var login = require('./login');
 var register = require('./register');
 var poem = require('./poem')(dbConfig);
 
-console.log("poem", poem);
-
 module.exports = function(app) {
 
   app.get('/', login.get);
