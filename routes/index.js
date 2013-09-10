@@ -1,10 +1,8 @@
-var dbConfig = require("../db/config.js");
+module.exports = function(app, dbConfig) {
 
-var login = require('./login');
-var register = require('./register');
-var poem = require('./poem')(dbConfig);
-
-module.exports = function(app) {
+	var login = require('./login');
+	var register = require('./register');
+	var poem = require('./poem')(dbConfig);
 
   app.get('/', login.get);
   app.get('/login', login.get);
