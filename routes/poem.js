@@ -1,28 +1,38 @@
-var _ = require('underscore');
+var PoemsRepository = require("../lib/repositories/poems_repository");
+var LinesRepository = require("../lib/repositories/lines_repository");
 
-var poems = [
-  { id: 1, name: 'chon chon' },
-  { id: 2, name: 'cuddly chang' },
-  { id: 3, name: 'billy grippa' },
-  { id: 4, name: 'power franken'}
-];
+module.exports = function(dbConfig) {
 
-exports.list = function(req, res) {
-  res.render('poem/list', { poems: poems });
-}
+	var poemsRepo = new PoemsRepository(dbConfig);
+	var linesRepo = new LinesRepository(dbConfig);
 
-exports.edit = function(req, res) {
-  console.log('poems', poems);
-  var poem = _.find(poems, function(p) { return p.id == req.params.id; });
-  res.render('poem/edit', { poem: poem });
-}
+	return {
 
-exports.createform = function(req, res) {
-  res.render('poem/new');
-}
+		list: function list(req, res) {
+			poemsRepo.all(function(err, poems) {
+				res.render('poem/list', { poems: poems });
+			});
+		},
 
-exports.create = function(req, res) {
-  var poem = { id: poems.length + 1, name: req.body.name };
-  poems.push(poem);
-  res.redirect('/poem/' + poem.id);
-}
+		edit: function edit(req, res) {
+			var poemId = req.params.id;
+			poemsRepo.read(poemId, function(err, poem) {
+				linesRepo.forPoem(poemId, function(err, lines) {
+					res.render('poem/edit', { poem: poem, lines: lines });
+				});
+			});
+		},
+
+		createForm: function createForm(req, res) {
+			res.render('poem/new');
+		},
+
+		create: function create(req, res) {
+			poemsRepo.create({ name: req.body.name }, function(err, poem) {
+				res.redirect('/poem/' + poem.id);
+			});
+		}
+
+	};
+
+};
