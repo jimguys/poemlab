@@ -1,19 +1,15 @@
-var PoemsRepository = require("../lib/repositories/poems_repository");
-var LinesRepository = require("../lib/repositories/lines_repository");
-
-function respond(err, res, successCallback) {
-  if (err) {
-    console.log('***ERROR: ' + err);
-    res.status(500);
-  } else {
-    successCallback(res);
-  }
-}
-
 module.exports = function(dbConfig) {
+  var poemsRepo = require("../lib/repositories/poems_repository")(dbConfig);
+  var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
 
-  var poemsRepo = new PoemsRepository(dbConfig);
-  var linesRepo = new LinesRepository(dbConfig);
+  function respond(err, res, successCallback) {
+    if (err) {
+      console.log('***ERROR: ' + err);
+      res.status(500);
+    } else {
+      successCallback(res);
+    }
+  }
 
   function readPoemLines(poem, res) {
     linesRepo.forPoem(poem.id, function(err, lines) {
@@ -22,6 +18,7 @@ module.exports = function(dbConfig) {
       });
     });
   }
+
 
   return {
 

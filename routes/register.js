@@ -5,4 +5,3 @@ exports.get = function(req, res) {
 exports.post = function(req, res) {
   res.redirect('/poem');
 }
-
