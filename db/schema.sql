@@ -2,6 +2,8 @@
 -- PostgreSQL database dump
 --
 
+\c cuddlychang
+
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
@@ -44,13 +46,6 @@ COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
@@ -76,7 +71,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: lines; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: lines; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE lines (
@@ -100,7 +95,7 @@ CREATE SEQUENCE poem_id_seq
 
 
 --
--- Name: poems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: poems; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE poems (
@@ -122,7 +117,7 @@ CREATE SEQUENCE poet_id_seq
 
 
 --
--- Name: poets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: poets; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE poets (
@@ -134,7 +129,7 @@ CREATE TABLE poets (
 
 
 --
--- Name: poets_poems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: poets_poems; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE poets_poems (
@@ -144,7 +139,7 @@ CREATE TABLE poets_poems (
 
 
 --
--- Name: lines_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: lines_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY lines
@@ -152,7 +147,7 @@ ALTER TABLE ONLY lines
 
 
 --
--- Name: poems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: poems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY poems
@@ -160,7 +155,7 @@ ALTER TABLE ONLY poems
 
 
 --
--- Name: poets_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: poets_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY poets
@@ -168,7 +163,7 @@ ALTER TABLE ONLY poets
 
 
 --
--- Name: poets_name_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: poets_name_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY poets
@@ -176,7 +171,7 @@ ALTER TABLE ONLY poets
 
 
 --
--- Name: poets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: poets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY poets
@@ -184,7 +179,7 @@ ALTER TABLE ONLY poets
 
 
 --
--- Name: poets_poems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: poets_poems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY poets_poems
