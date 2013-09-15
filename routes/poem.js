@@ -5,7 +5,7 @@ module.exports = function(dbConfig) {
   function respond(err, res, successCallback) {
     if (err) {
       console.log('***ERROR: ' + err);
-      res.status(500);
+      res.send(500, 'Internal server error');
     } else {
       successCallback(res);
     }
@@ -18,7 +18,6 @@ module.exports = function(dbConfig) {
       });
     });
   }
-
 
   return {
 
