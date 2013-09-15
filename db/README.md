@@ -1,25 +1,29 @@
 # Database Setup
 
-To create the database in PostgreSQL, run:
+These instructions were written specifically to work on Ubuntu, so if you
+are on a different OS your mileage may vary.
+
+The instructions assume you have installed postgresql in a standard way, which
+includes creating a system user named postgres and a PostgreSQL superuser
+also named postgres. It also assumes you have your PostgreSQL pg_hba.conf file
+configured something like the example shown below--particularly allowing md5
+password authentication for local unix socket users.
+
+\# TYPE     DATABASE     USER     ADDRESS     METHOD
+   local    all          postgres             peer
+   local    all          all                  md5
+
+For more info about this config file see: http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+Assuming all that, you can run this sequence of commands to create a
+PostgreSQL user named cuddlychang and a database of the same name owned by that
+user. Then you can use the supplied schema.sql file to create the tables, etc
+needed for this app.
 
 ```
-psql < schema.sql
-```
-
-This implies that you have PostgreSQL configured to trust the currently logged in user.
-It will create the database using your username and will allow you to connect to it
-without supplying a password. This is convenient for development.
-
-If you want to create a separate user (pocolab in this example)for this database
-(which is better for production), and if you are running Ubuntu or similar, here are
-the steps to do it, assuming you've installed PostgreSQL in the "standard" way where
-there is a PostgreSQL superuser named postgres and a system user called postgres and
-peer authentication is configured, etc.
-
-```
-sudo -u postgres createuser -SDRP pocolab
-sudo -u postgres createdb -O pocolab pocolab
-psql -U pocolab < schema.sql
+sudo -u postgres createuser -SDRP cuddlychang
+sudo -u postgres createdb -O cuddlychang cuddlychang
+psql -U cuddlychang < schema.sql
 ```
 
 There will be quite a few errors in the output if you are creating the tables for the
@@ -29,13 +33,5 @@ re-create them, but these should be harmless.
 Now you should be able to connect to the newly created database with
 
 ```
-psql -U pocolab
-```
-
-# Database Export
-
-The schema.sql file can be created with this command, assuming certain configuration:
-
-```
-sudo -u postgres pg_dump -cOs pocolab > schema.sql
+psql -U cuddlychang
 ```
