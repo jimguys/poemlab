@@ -1,38 +1,54 @@
-var PoemsRepository = require("../lib/repositories/poems_repository");
-var LinesRepository = require("../lib/repositories/lines_repository");
-
 module.exports = function(dbConfig) {
+  var poemsRepo = require("../lib/repositories/poems_repository")(dbConfig);
+  var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
 
-	var poemsRepo = new PoemsRepository(dbConfig);
-	var linesRepo = new LinesRepository(dbConfig);
+  function respond(err, res, successCallback) {
+    if (err) {
+      console.log('***ERROR: ' + err);
+      res.send(500, 'Internal server error');
+    } else {
+      successCallback(res);
+    }
+  }
 
-	return {
+  function readPoemLines(poem, res) {
+    linesRepo.forPoem(poem.id, function(err, lines) {
+      respond(err, res, function() {
+        res.render('poem/edit', { poem: poem, lines: lines });
+      });
+    });
+  }
 
-		list: function list(req, res) {
-			poemsRepo.all(function(err, poems) {
-				res.render('poem/list', { poems: poems });
-			});
-		},
+  return {
 
-		edit: function edit(req, res) {
-			var poemId = req.params.id;
-			poemsRepo.read(poemId, function(err, poem) {
-				linesRepo.forPoem(poemId, function(err, lines) {
-					res.render('poem/edit', { poem: poem, lines: lines });
-				});
-			});
-		},
+    list: function list(req, res) {
+      poemsRepo.all(function(err, poems) {
+        respond(err, res, function() {
+          res.render('poem/list', { poems: poems });
+        });
+      });
+    },
 
-		createForm: function createForm(req, res) {
-			res.render('poem/new');
-		},
+    edit: function edit(req, res) {
+      var poemId = req.params.id;
+      poemsRepo.read(poemId, function(err, poem) {
+        respond(err, res, function() {
+          readPoemLines(poem, res);
+        });
+      });
+    },
 
-		create: function create(req, res) {
-			poemsRepo.create({ name: req.body.name }, function(err, poem) {
-				res.redirect('/poem/' + poem.id);
-			});
-		}
+    createForm: function createForm(req, res) {
+      res.render('poem/new');
+    },
 
-	};
+    create: function create(req, res) {
+      poemsRepo.create({ name: req.body.name }, function(err, poem) {
+        respond(err, res, function() {
+          res.redirect('/poem/' + poem.id);
+        });
+      });
+    }
+  };
 
 };
