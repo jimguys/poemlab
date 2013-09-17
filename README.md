@@ -1,4 +1,4 @@
-Pocolabs
-==========
+Poem Lab
+========
 
 Collaborative Poetry Engine
