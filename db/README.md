@@ -9,9 +9,11 @@ also named postgres. It also assumes you have your PostgreSQL pg_hba.conf file
 configured something like the example shown below--particularly allowing md5
 password authentication for local unix socket users.
 
+```
 \# TYPE     DATABASE     USER     ADDRESS     METHOD
    local    all          postgres             peer
    local    all          all                  md5
+```
 
 For more info about this config file see: http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
 
