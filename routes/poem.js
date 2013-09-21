@@ -1,15 +1,8 @@
+var respond = require('./common').respond;
+
 module.exports = function(dbConfig) {
   var poemsRepo = require("../lib/repositories/poems_repository")(dbConfig);
   var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
-
-  function respond(err, res, successCallback) {
-    if (err) {
-      console.error('***ERROR: ' + err);
-      res.send(500, 'Internal server error');
-    } else {
-      successCallback(res);
-    }
-  }
 
   function readPoemLines(poem, res) {
     linesRepo.forPoem(poem.id, function(err, lines) {

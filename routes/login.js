@@ -30,7 +30,6 @@ module.exports = function(dbConfig) {
     },
 
     login: function(req, res) {
-      console.log('login called, will redirect');
       res.redirect('/poem');
     },
 

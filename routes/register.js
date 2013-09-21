@@ -1,7 +1,21 @@
-exports.get = function(req, res) {
-  res.render('register', { title: 'Poem Lab' });
-}
+var respond = require('./common').respond;
 
-exports.post = function(req, res) {
-  res.redirect('/poem');
-}
+module.exports = function(dbConfig) {
+  var poetsRepo = require("../lib/repositories/poets_repository")(dbConfig);
+
+  return {
+
+    get: function(req, res) {
+      res.render('register', { title: 'Poem Lab' });
+    },
+
+    create: function(req, res) {
+      var userData = { username: req.body.username, email: req.body.email, password: req.body.password};
+      poetsRepo.create(userData, function(err, user) {
+        respond(err, res, function() {
+          res.redirect('/poem');
+        });
+      });
+    }
+  };
+};

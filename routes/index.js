@@ -6,7 +6,7 @@ module.exports = function(app, dbConfig) {
   app.use(app.router);
 
   var login = require('./login')(dbConfig);
-  var register = require('./register');
+  var register = require('./register')(dbConfig);
   var poem = require('./poem')(dbConfig);
 
   app.get('/', login.get);
@@ -15,7 +15,7 @@ module.exports = function(app, dbConfig) {
   app.del('/login', login.logout);
 
   app.get('/register', register.get);
-  app.post('/register', register.post);
+  app.post('/register', register.create);
 
   app.get('/poem', poem.list);
   app.get('/poem/new', poem.createForm);
