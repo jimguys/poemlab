@@ -3,3 +3,4 @@ npm-debug.log
 *.swp
 *.log
 db/config.json
+security/config.json

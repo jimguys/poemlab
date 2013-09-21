@@ -1,4 +1,4 @@
-var dbConfig = require("./db/config.js");
+var config = require("./config.js");
 
 var express = require('express');
 var http = require('http');
@@ -16,8 +16,9 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(express.cookieParser());
+app.use(express.session({ secret: config.security.sessionKey }));
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
@@ -26,7 +27,7 @@ if ('development' == app.get('env')) {
 }
 
 // route registration
-require('./routes')(app, dbConfig);
+require('./routes')(app, config.db);
 
 // start the server
 server.listen(app.get('port'), function(){
