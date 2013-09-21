@@ -34,8 +34,8 @@ module.exports = function(dbConfig) {
     },
 
     logout: function(req, res) {
-      request.logout();
-      response.send(200);
+      req.logout();
+      res.redirect('/');
     }
   }
 }

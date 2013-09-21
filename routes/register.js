@@ -1,4 +1,5 @@
 var respond = require('./common').respond;
+var passport = require('passport');
 
 module.exports = function(dbConfig) {
   var poetsRepo = require("../lib/repositories/poets_repository")(dbConfig);
@@ -17,7 +18,9 @@ module.exports = function(dbConfig) {
       };
       poetsRepo.create(userData, function(err, user) {
         respond(err, res, function() {
-          res.redirect('/poem');
+          passport.authenticate('local')(req, res, function() {
+            res.redirect('/poem');
+          })
         });
       });
     }
