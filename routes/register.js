@@ -10,7 +10,11 @@ module.exports = function(dbConfig) {
     },
 
     create: function(req, res) {
-      var userData = { username: req.body.username, email: req.body.email, password: req.body.password};
+      var userData = { 
+        username: req.body.username, 
+        email: req.body.email, 
+        password: req.body.hashedPassword
+      };
       poetsRepo.create(userData, function(err, user) {
         respond(err, res, function() {
           res.redirect('/poem');

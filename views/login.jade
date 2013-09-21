@@ -3,9 +3,13 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  form(action="/login", method="post")
+  form#login(action="/login", method="post")
     p
       input(type="text", name="username", placeholder="Username")
-      input(type="password", name="password", placeholder="Password")
+      input#password(type="password", placeholder="Password")
+      input#hashedPassword(type="hidden", name="hashedPassword")
       input(type="submit" value="Login")
   a(href="/register") Sign up
+  script(src="/js/vendor/jquery-1.10.2.min.js")
+  script(src="/js/vendor/sha256.js")
+  script(src="/js/login.js")

@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title} Registration
-  form(method="post", action="/register")
+  form#register(method="post", action="/register")
     p
       div
         input(type="text", name="username", placeholder="User name")
@@ -10,8 +10,12 @@ block content
         input(type="text", name="email", placeholder="Email")
     p
       div
-        input(type="password", name="password", placeholder="Password")
+        input#password(type="password", placeholder="Password")
       div
-        input(type="password", name="confirm", placeholder="Confirm Password")
+        input#confirm(type="password", placeholder="Confirm Password")
+      input#hashedPassword(type="hidden", name="hashedPassword")
 
     input(type="submit", value="Sign Up")
+  script(src="/js/vendor/jquery-1.10.2.min.js")
+  script(src="/js/vendor/sha256.js")
+  script(src="/js/register.js")

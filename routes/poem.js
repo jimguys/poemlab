@@ -17,7 +17,7 @@ module.exports = function(dbConfig) {
     list: function list(req, res) {
       poemsRepo.all(function(err, poems) {
         respond(err, res, function() {
-          res.render('poem/list', { poems: poems });
+          res.render('poem/list', { poems: poems, poet: req.user });
         });
       });
     },

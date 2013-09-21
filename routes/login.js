@@ -6,7 +6,8 @@ module.exports = function(dbConfig) {
   var authenticationService = require('../security/authentication_service')(poetsRepo);
 
   passport.use(new LocalStrategy({
-      usernameField: 'username'
+      usernameField: 'username',
+      passwordField: 'hashedPassword'
     },
     function(username, password, done) {
       authenticationService.verify(username, password, function(err, user) {
@@ -20,7 +21,6 @@ module.exports = function(dbConfig) {
   });
 
   passport.deserializeUser(function(user, done) {
-    global.user = user;
     done(null, user);
   });
 
