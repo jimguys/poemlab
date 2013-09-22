@@ -3,7 +3,6 @@ var config = require("./config.js");
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var escape = require('escape-html');
 
 var app = express();
 var server = http.createServer(app);
@@ -22,16 +21,17 @@ app.use(express.session({ secret: config.security.sessionKey }));
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
 // route registration
 require('./routes')(app, config.db);
 
 // socket.io server logic
 require('./lib/poem-editing')(io, config.db);
+
+// development only
+app.use(function(err, req, res, next) {
+  console.error('***UNHANDLED ERROR: ', err.stack);
+  res.send(500, 'Internal server error');
+});
 
 // start the http server
 server.listen(app.get('port'), function(){
