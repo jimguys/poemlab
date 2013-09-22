@@ -12,10 +12,18 @@ module.exports = function(dbConfig) {
     });
   }
 
+  function addPoetToPoem(poem, poet, res) {
+    poemsRepo.addPoet(poem.id, poet.id, function(err) {
+      respond(err, res, function() {
+        res.redirect('/poem/' + poem.id);
+      });
+    });
+  }
+
   return {
 
     list: function list(req, res) {
-      poemsRepo.all(function(err, poems) {
+      poemsRepo.forPoet(req.user.id, function(err, poems) {
         respond(err, res, function() {
           res.render('poem/list', { poems: poems, poet: req.user });
         });
@@ -38,7 +46,7 @@ module.exports = function(dbConfig) {
     create: function create(req, res) {
       poemsRepo.create({ name: req.body.name }, function(err, poem) {
         respond(err, res, function() {
-          res.redirect('/poem/' + poem.id);
+          addPoetToPoem(poem, req.user, res);
         });
       });
     }
