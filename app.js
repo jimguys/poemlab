@@ -27,7 +27,7 @@ require('./routes')(app, config.db);
 // socket.io server logic
 require('./lib/poem-editing')(io, config.db);
 
-// development only
+// error handler
 app.use(function(err, req, res, next) {
   console.error('***UNHANDLED ERROR: ', err.stack);
   res.send(500, 'Internal server error');
