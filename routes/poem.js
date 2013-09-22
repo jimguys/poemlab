@@ -22,7 +22,7 @@ module.exports = function(dbConfig) {
 
   return {
 
-    list: function list(req, res) {
+    list: function(req, res) {
       poemsRepo.forPoet(req.user.id, function(err, poems) {
         respond(err, res, function() {
           res.render('poem/list', { poems: poems, poet: req.user });
@@ -30,7 +30,7 @@ module.exports = function(dbConfig) {
       });
     },
 
-    edit: function edit(req, res) {
+    edit: function(req, res) {
       var poemId = req.params.id;
       poemsRepo.read(poemId, function(err, poem) {
         respond(err, res, function() {
@@ -39,11 +39,11 @@ module.exports = function(dbConfig) {
       });
     },
 
-    createForm: function createForm(req, res) {
+    createForm: function(req, res) {
       res.render('poem/new');
     },
 
-    create: function create(req, res) {
+    create: function(req, res) {
       poemsRepo.create({ name: req.body.name }, function(err, poem) {
         respond(err, res, function() {
           addPoetToPoem(poem, req.user, res);
