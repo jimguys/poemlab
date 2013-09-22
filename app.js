@@ -3,7 +3,6 @@ var config = require("./config.js");
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var escape = require('escape-html');
 
 var app = express();
 var server = http.createServer(app);

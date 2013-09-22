@@ -9,7 +9,6 @@
     "express": "~3.4.0",
     "jade": "*",
     "underscore": "~1.5.2",
-    "escape-html": "~1.0.0",
     "socket.io": "~0.9.16",
     "pg": "~2.6.0",
     "passport": "~0.1.17",
