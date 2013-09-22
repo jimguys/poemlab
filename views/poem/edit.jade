@@ -3,12 +3,12 @@ extends ../layout
 block content
   h1= poem.name
   .poem
+    form.newline-form(action="javascript:void(0)", data-poem-id="#{poem.id}", data-poet-id="#{poet.id}")
+      input.line-text(type="text", size=100)
+      input(type="submit", value="Post")
     each line in lines
       .line= line.text
-    form.newline-form(action="javascript:void(0)")
-      input.newline(type="text", size=100)
-      input(type="submit", value="Post")
 
   script(src="/socket.io/socket.io.js")
   script(src="/js/vendor/jquery-1.10.2.min.js")
-  script(src="/js/client.js")
+  script(src="/js/poem/edit.js")

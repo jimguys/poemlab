@@ -8,6 +8,7 @@ var escape = require('escape-html');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+io.set('log level', 1);
 
 // all environments
 app.set('port', process.env.PORT || 80);
@@ -29,16 +30,10 @@ if ('development' == app.get('env')) {
 // route registration
 require('./routes')(app, config.db);
 
-// start the server
+// socket.io server logic
+require('./lib/poem-editing')(io, config.db);
+
+// start the http server
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-});
-
-// socket.io
-io.sockets.on('connection', function (socket) {
-	socket.on('submitline', function (poemLine) {
-		var escapedLine = escape(poemLine);
-		socket.emit('newline', escapedLine);
-		socket.broadcast.emit('newline', escapedLine);
-	});
 });
