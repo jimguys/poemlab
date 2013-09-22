@@ -2,6 +2,14 @@ extends ../layout
 
 block content
   h1 New Poem
+  h3 Create a new poem
   form(action="/poem", method="post")
-    input(type="text", name="name")
-    input(type="submit", value="Start")
+    input(type="text", name="name", placeholder="Poem Name", size=50)
+    p
+      input.poetsearch.typeahead(type="text", placeholder="Find a poet")
+      ul.poets
+    input(type="submit", value="Start Poem")
+
+  script(src="/js/vendor/jquery-1.10.2.min.js")
+  script(src="/js/vendor/typeahead.min.js")
+  script(src="/js/poem/new.js")
