@@ -1,15 +1,8 @@
+var respond = require('./common').respond;
+
 module.exports = function(dbConfig) {
   var poemsRepo = require("../lib/repositories/poems_repository")(dbConfig);
   var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
-
-  function respond(err, res, successCallback) {
-    if (err) {
-      console.error('***ERROR: ' + err);
-      res.send(500, 'Internal server error');
-    } else {
-      successCallback(res);
-    }
-  }
 
   function readPoemLines(poem, res) {
     linesRepo.forPoem(poem.id, function(err, lines) {
@@ -24,7 +17,7 @@ module.exports = function(dbConfig) {
     list: function list(req, res) {
       poemsRepo.all(function(err, poems) {
         respond(err, res, function() {
-          res.render('poem/list', { poems: poems });
+          res.render('poem/list', { poems: poems, poet: req.user });
         });
       });
     },
