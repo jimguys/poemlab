@@ -5,10 +5,17 @@ $(function() {
     valueKey: 'name'
   }).on('typeahead:selected', function(element, poet) {
     var poets = $(this).closest('form').find('.poets');
-    $('<li/>', {
-      'data-poet-id': poet.id,
-      'text': poet.name
+
+    var li = $('<li/>', {
+      text: poet.name
     }).appendTo(poets);
+
+    $('<input/>', {
+      type: 'hidden',
+      name: 'poets',
+      value: poet.id
+    }).appendTo(li);
+
     $(this).typeahead('setQuery', '');
   });
 });
