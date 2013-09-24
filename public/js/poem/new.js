@@ -1,14 +1,23 @@
 $(function() {
-  $('.poetsearch').typeahead({
-    name: 'poets',
-    remote: '/poet?q=%QUERY',
-    valueKey: 'name'
-  }).on('typeahead:selected', function(element, poet) {
-    var poets = $(this).closest('form').find('.poets');
 
+  var poetSearch = $('.poetsearch');
+  var poetsList = poetSearch.closest('form').find('.poets');
+
+  poetSearch.typeahead({
+    name: 'poets',
+    valueKey: 'name',
+    remote: {
+      url: '/poet?q=%QUERY',
+      filter: function(poets) {
+        return poets.filter(function(p) {
+          return poetsList.find('input[value=' + p.id + ']').length === 0;
+        });
+      }
+    }
+  }).on('typeahead:selected', function(element, poet) {
     var li = $('<li/>', {
       text: poet.name
-    }).appendTo(poets);
+    }).appendTo(poetsList);
 
     $('<input/>', {
       type: 'hidden',
