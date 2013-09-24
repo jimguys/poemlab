@@ -12,8 +12,8 @@ module.exports = function(dbConfig) {
     });
   }
 
-  function addPoetToPoem(poem, poet, res) {
-    poemsRepo.addPoet(poem.id, poet.id, function(err) {
+  function addPoetsToPoem(poem, poetIds, res) {
+    poemsRepo.addPoets(poem.id, poetIds, function(err) {
       respond(err, res, function() {
         res.redirect('/poem/' + poem.id);
       });
@@ -40,13 +40,14 @@ module.exports = function(dbConfig) {
     },
 
     createForm: function(req, res) {
-      res.render('poem/new');
+      res.render('poem/new', { poet: req.user });
     },
 
     create: function(req, res) {
       poemsRepo.create({ name: req.body.name }, function(err, poem) {
         respond(err, res, function() {
-          addPoetToPoem(poem, req.user, res);
+          var poetIds = [].concat(req.body.poets);
+          addPoetsToPoem(poem, poetIds, res);
         });
       });
     }

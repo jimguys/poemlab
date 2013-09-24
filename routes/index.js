@@ -8,6 +8,7 @@ module.exports = function(app, dbConfig) {
   var login = require('./login')(dbConfig);
   var register = require('./register')(dbConfig);
   var poem = require('./poem')(dbConfig);
+  var poet = require('./poet')(dbConfig);
 
   app.get('/', login.get);
   app.get('/login', login.get);
@@ -22,4 +23,5 @@ module.exports = function(app, dbConfig) {
   app.get('/poem/:id', poem.edit);
   app.post('/poem', poem.create);
 
+  app.get('/poet', poet.search);
 };
