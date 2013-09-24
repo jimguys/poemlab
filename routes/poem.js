@@ -40,15 +40,13 @@ module.exports = function(dbConfig) {
     },
 
     createForm: function(req, res) {
-      res.render('poem/new');
+      res.render('poem/new', { poet: req.user });
     },
 
     create: function(req, res) {
       poemsRepo.create({ name: req.body.name }, function(err, poem) {
         respond(err, res, function() {
           var poetIds = [].concat(req.body.poets);
-          console.log('poetIds', poetIds);
-          poetIds.push(req.user.id);
           addPoetsToPoem(poem, poetIds, res);
         });
       });
