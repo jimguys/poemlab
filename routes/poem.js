@@ -46,7 +46,8 @@ module.exports = function(dbConfig) {
     create: function(req, res) {
       poemsRepo.create({ name: req.body.name }, function(err, poem) {
         respond(err, res, function() {
-          var poetIds = req.body.poets;
+          var poetIds = [].concat(req.body.poets);
+          console.log('poetIds', poetIds);
           poetIds.push(req.user.id);
           addPoetsToPoem(poem, poetIds, res);
         });
