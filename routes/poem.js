@@ -4,10 +4,10 @@ module.exports = function(dbConfig) {
   var poemsRepo = require("../lib/repositories/poems_repository")(dbConfig);
   var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
 
-  function readPoemLines(poem, poet, res) {
+  function readPoemLines(poem, user, res) {
     linesRepo.forPoem(poem.id, function(err, lines) {
       respond(err, res, function() {
-        res.render('poem/edit', { poem: poem, poet: poet, lines: lines });
+        res.render('poem/edit', { poem: poem, user: user, lines: lines });
       });
     });
   }
@@ -25,7 +25,7 @@ module.exports = function(dbConfig) {
     list: function(req, res) {
       poemsRepo.forPoet(req.user.id, function(err, poems) {
         respond(err, res, function() {
-          res.render('poem/list', { poems: poems, poet: req.user });
+          res.render('poem/list', { poems: poems, user: req.user });
         });
       });
     },
@@ -40,7 +40,7 @@ module.exports = function(dbConfig) {
     },
 
     createForm: function(req, res) {
-      res.render('poem/new', { poet: req.user });
+      res.render('poem/new', { user: req.user });
     },
 
     create: function(req, res) {
