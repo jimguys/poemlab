@@ -8,8 +8,8 @@ block content
     p
       input.poetsearch.typeahead(type="text", placeholder="Add other poets")
       ul.poets
-        li.poet= poet.name
-          input(type="hidden", value="#{poet.id}")
+        li.poet= user.name
+          input(type="hidden", value="#{user.id}")
     input(type="submit", value="Start Poem")
 
   script(src="/js/vendor/jquery-1.10.2.min.js")
