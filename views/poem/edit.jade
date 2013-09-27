@@ -2,8 +2,8 @@ extends ../layout
 
 block content
   h1= poem.name
-  .poem
-    form.newline-form(action="javascript:void(0)", data-poem-id="#{poem.id}", data-poet-id="#{user.id}")
+  #poem(data-poem-id="#{poem.id}")
+    form.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")
     each line in lines

@@ -22,10 +22,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // route registration
-require('./routes')(app, config.db);
-
-// socket.io server logic
-require('./lib/poem-editing')(io, config.db);
+require('./routes')(app, io, config.db);
 
 // error handler
 app.use(function(err, req, res, next) {

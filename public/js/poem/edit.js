@@ -1,19 +1,22 @@
-var socket = io.connect('/');
+$(function() {
+  var poemEl = $('#poem');
+  var poemId = poemEl.data('poem-id');
+  var socket = io.connect('/');
 
-socket.on('line-created', function(poemLine) {
-  $('<div/>', {
-    'class': 'line',
-    'text': poemLine.text
-  }).appendTo('.poem');
-});
+  socket.on('line-created-for-poem-' + poemId, function(poemLine) {
+    $('<div/>', {
+      'class': 'line',
+      'text': poemLine.text
+    }).appendTo(poemEl);
+  });
 
-$('.newline-form').submit(function() {
-  var lineTextEl = $(this).find('.line-text');
-  var lineData = {
-    poem_id: $(this).data('poem-id'),
-    poet_id: $(this).data('poet-id'),
-    text: lineTextEl.val()
-  };
-  socket.emit('line-submitted', lineData);
-  lineTextEl.val('');
+  $('.newline-form').submit(function() {
+    var lineTextEl = $(this).find('.line-text');
+    var lineData = {
+      poem_id: poemId,
+      text: lineTextEl.val()
+    };
+    $.post('/line', lineData);
+    lineTextEl.val('');
+  });
 });

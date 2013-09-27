@@ -1,6 +1,6 @@
 var passport = require('passport');
 
-module.exports = function(app, dbConfig) {
+module.exports = function(app, io, dbConfig) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
@@ -9,6 +9,7 @@ module.exports = function(app, dbConfig) {
   var register = require('./register')(dbConfig);
   var poem = require('./poem')(dbConfig);
   var poet = require('./poet')(dbConfig);
+  var line = require('./line')(io, dbConfig);
 
   app.get('/', login.get);
   app.get('/login', login.get);
@@ -22,6 +23,8 @@ module.exports = function(app, dbConfig) {
   app.get('/poem/new', poem.createForm);
   app.get('/poem/:id', poem.edit);
   app.post('/poem', poem.create);
+
+  app.post('/line', line.create);
 
   app.get('/poet', poet.search);
 };
