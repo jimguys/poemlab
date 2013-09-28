@@ -1,11 +1,13 @@
 extends ../layout
 
 block content
-  h1= poem.name
-  #poem(data-poem-id="#{poem.id}")
+  #poem-edit-header-panel
+  #poem-edit-header(data-poem-id="#{poem.id}")
+    h1= poem.name
     form.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")
+  #lines
     each line in lines
       .line= line.text
 
