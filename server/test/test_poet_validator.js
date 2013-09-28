@@ -7,8 +7,10 @@ var poetsRepo = require("../repositories/poets_repository")(config.db);
 var poetValidator = require("../services/poet_validator")(poetsRepo);
 
 var emptyPoet = {};
-var duplicatePoet = { username: "drueck", email: "drueck@gmail.com", password: "asldkfslkjdf" };
-var validPoet = { username: "nonexistent", email: "non@existe.nt", password: "frommage" };
+var invalidEmailPoet = { username: "nonexistent", email: "nonexistent", password: "075f0956584cfa8d32beb384fcf51ce3ee30a7e5aeee6434acc222928a30db3e" };
+var duplicatePoet = { username: "drueck", email: "drueck@gmail.com", password: "075f0956584cfa8d32beb384fcf51ce3ee30a7e5aeee6434acc222928a30db3e" };
+var unhashedPoet = { username: "nonexistent", email: "non@existe.nt", password: "unhashed" };
+var validPoet = { username: "nonexistent", email: "non@existe.nt", password: "075f0956584cfa8d32beb384fcf51ce3ee30a7e5aeee6434acc222928a30db3e" };
 
 function testValidate(poet, done) {
 	poetValidator.validate(poet, function(valid, errors) {
@@ -21,9 +23,13 @@ function testValidate(poet, done) {
 }
 
 testValidate(emptyPoet, function() {
-	testValidate(duplicatePoet, function() {
-		testValidate(validPoet, function() {
-			pg.end();
+	testValidate(invalidEmailPoet, function() {
+		testValidate(duplicatePoet, function() {
+			testValidate(unhashedPoet, function() {
+				testValidate(validPoet, function() {
+					pg.end();
+				});
+			});
 		});
 	});
 });

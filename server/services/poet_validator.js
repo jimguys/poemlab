@@ -14,6 +14,16 @@ module.exports = function(poetsRepository) {
 		});
 	}
 
+	function emailLooksValid(email) {
+		var basicEmailRegex = /\S+@\S+\.\S+/;
+		return email && basicEmailRegex.test(email);
+	}
+
+	function passwordIsHashed(password) {
+		var sha256 = /[a-f0-9]{64}/;
+		return password && sha256.test(password);
+	}
+
 	return {
 
 		validate: function(poet, callback) {
@@ -24,6 +34,14 @@ module.exports = function(poetsRepository) {
 			if (!poet.username) { errors.push("A username is required"); }
 			if (!poet.email) { errors.push("An email address is required"); }
 			if (!poet.password) { errors.push("A password is required"); }
+
+			if (!emailLooksValid(poet.email)) {
+				errors.push("The email address supplied doesn't look valid");
+			}
+
+			if (!passwordIsHashed(poet.password)) {
+				errors.push("The password must be hashed");
+			}
 
 			if (errors.length > 0) {
 				valid = false;
