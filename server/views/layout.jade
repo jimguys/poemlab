@@ -6,6 +6,6 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     if user
-      div #{user.name} &bull; 
+      div #{user.name} &bull;
         a(href="/logout") logout
     block content

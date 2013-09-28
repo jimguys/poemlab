@@ -2,5 +2,5 @@ node_modules
 npm-debug.log
 *.swp
 *.log
-db/config.json
-security/config.json
+config/db.json
+config/security.json

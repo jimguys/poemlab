@@ -2,7 +2,7 @@ var respond = require('./common').respond;
 var _ = require('underscore');
 
 module.exports = function(dbConfig) {
-  var poetsRepo = require("../lib/repositories/poets_repository")(dbConfig);
+  var poetsRepo = require("../repositories/poets_repository")(dbConfig);
 
   return {
 

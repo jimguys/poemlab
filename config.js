@@ -11,5 +11,5 @@ function requireIfExists(configFile) {
   return require(configFile);
 }
 
-module.exports.db = requireIfExists("./db/config.json");
-module.exports.security = requireIfExists("./security/config.json");
+module.exports.db = requireIfExists("./config/db.json");
+module.exports.security = requireIfExists("./config/security.json");

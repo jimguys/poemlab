@@ -1,7 +1,7 @@
 var respond = require('./common').respond;
 
 module.exports = function(io, dbConfig) {
-  var linesRepo = require("../lib/repositories/lines_repository")(dbConfig);
+  var linesRepo = require("../repositories/lines_repository")(dbConfig);
 
   return {
     create: function(req, res) {

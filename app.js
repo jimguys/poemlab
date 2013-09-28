@@ -11,7 +11,7 @@ io.set('log level', 1);
 
 // all environments
 app.set('port', process.env.PORT || 80);
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -22,7 +22,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // route registration
-require('./routes')(app, io, config.db);
+require('./server/routes')(app, io, config.db);
 
 // error handler
 app.use(function(err, req, res, next) {

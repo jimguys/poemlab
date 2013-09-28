@@ -2,8 +2,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(dbConfig) {
-  var poetsRepo = require("../lib/repositories/poets_repository")(dbConfig);
-  var authenticationService = require('../security/authentication_service')(poetsRepo);
+  var poetsRepo = require("../repositories/poets_repository")(dbConfig);
+  var authenticationService = require('../services/authentication_service')(poetsRepo);
 
   passport.use(new LocalStrategy({
       usernameField: 'username',
@@ -37,5 +37,5 @@ module.exports = function(dbConfig) {
       req.logout();
       res.redirect('/');
     }
-  }
-}
+  };
+};
