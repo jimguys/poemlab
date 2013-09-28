@@ -29,6 +29,13 @@ module.exports = function(dbConfig) {
 			});
 		},
 
+		readByEmail: function(email, callback) {
+			db.query("select * from poets where email = $1", [email], function(err, result) {
+				if (err) { return callback(err); }
+				callback(null, result.rows[0]);
+			});
+		},
+
 		search: function(query, callback) {
 			db.query("select * from poets where name ilike $1 limit 20", [query + "%"], function(err, result) {
 				if (err) { return callback(err); }
