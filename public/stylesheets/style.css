@@ -1,6 +1,7 @@
 body {
-  padding: 50px;
+  padding: 50px 50px 5px 50px;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 a {
@@ -43,4 +44,41 @@ li {
 
 .tt-suggestion p {
   margin: 0;
+}
+
+h1 {
+  margin-top: 30px;
+  white-space: nowrap;
+}
+
+#poem-edit-header {
+  position: fixed;
+}
+
+#poem-edit-header-panel {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 180px;
+  background: #fff;
+}
+
+.newline-form {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.newline-form input[type=text] {
+  width: 70%;
+  min-width: 120px;
+}
+
+.login-panel {
+  position: fixed;
+  z-index: 1;
+}
+
+#lines {
+  margin-top: 130px;
+  height: 100%;
 }
