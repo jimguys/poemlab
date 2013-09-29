@@ -4,5 +4,5 @@ $(function() {
     var hashedPassword = CryptoJS.SHA256(password).toString();
     $("#hashedPassword").val(hashedPassword);
     return true;
-  })
+  });
 });
