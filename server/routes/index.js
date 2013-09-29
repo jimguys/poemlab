@@ -13,7 +13,7 @@ module.exports = function(app, io, dbConfig) {
 
   app.get('/', login.get);
   app.get('/login', login.get);
-  app.post('/login', passport.authenticate('local'), login.login);
+  app.post('/login', login.login);
   app.get('/logout', login.logout);
 
   app.get('/register', register.get);
