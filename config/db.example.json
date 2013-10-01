@@ -1,6 +1,6 @@
 {
-	"host": "localhost",
-	"database": "poemlab",
-	"user": "poemlab",
-	"password": "billygrippa"
+  "host": "localhost",
+  "database": "poemlab",
+  "user": "poemlab",
+  "password": "billygrippa"
 }
