@@ -7,6 +7,9 @@ block content
     form.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")
+    .poets
+      each poet, index in poets
+        .poet.poet#{index} #{poet.name}
   #lines
     each line in lines
       .line= line.text
