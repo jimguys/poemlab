@@ -4,8 +4,8 @@ module.exports = function(dbConfig) {
   var db = require('./poemlab_database')(dbConfig);
 
   return {
-    create: function(user_data, callback) {
-      var params = _.values(_.pick(user_data, ["username", "email", "password"]));
+    create: function(userData, callback) {
+      var params = _.values(_.pick(userData, ["username", "email", "password"]));
       db.query("insert into poets (name, email, password) values ($1, $2, $3) " +
           "returning id, name, email", params,
         function(err, result) {
@@ -15,8 +15,8 @@ module.exports = function(dbConfig) {
       );
     },
 
-    read: function(user_id, callback) {
-      db.query("select * from poets where id = $1", [user_id], function(err, result) {
+    read: function(userId, callback) {
+      db.query("select * from poets where id = $1", [userId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, result.rows[0]);
       });
@@ -43,8 +43,8 @@ module.exports = function(dbConfig) {
       });
     },
 
-    destroy: function(user_id, callback) {
-      db.query("delete from poets where id = $1", [user_id], function(err, result) {
+    destroy: function(userId, callback) {
+      db.query("delete from poets where id = $1", [userId], function(err, result) {
         callback(err);
       });
     },

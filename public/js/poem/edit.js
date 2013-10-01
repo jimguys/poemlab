@@ -16,7 +16,7 @@ $(function() {
 
   poemContainer.find('.newline-form').submit(function() {
     var lineData = {
-      poem_id: poemId,
+      poemId: poemId,
       text: lineTextInput.val()
     };
     $.post('/line', lineData);
