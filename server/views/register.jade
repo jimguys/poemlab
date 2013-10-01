@@ -3,6 +3,10 @@ extends layout
 block content
   h1 #{title} Registration
   form#register(method="post", action="/register")
+    #errors
+    if errors
+      each error in errors
+        .error= error
     p
       div
         input(type="text", name="username", placeholder="User name")
@@ -16,6 +20,7 @@ block content
       input#hashedPassword(type="hidden", name="hashedPassword")
 
     input(type="submit", value="Sign Up")
+
   script(src="/js/vendor/jquery-1.10.2.min.js")
   script(src="/js/vendor/sha256.js")
   script(src="/js/register.js")

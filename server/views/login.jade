@@ -4,6 +4,10 @@ block content
   h1= title
   p Welcome to #{title}
   form#login(action="/login", method="post")
+    #errors
+    if errors
+      each error in errors
+        .error= error
     p
       input(type="text", name="username", placeholder="Username")
       input#password(type="password", placeholder="Password")
