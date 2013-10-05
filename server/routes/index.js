@@ -1,8 +1,10 @@
 var passport = require('passport');
+var middleware = require('./middleware.js');
 
 module.exports = function(app, io, dbConfig) {
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(middleware.redirectBasedOnLoggedInStatus);
   app.use(app.router);
 
   var login = require('./login')(dbConfig);
