@@ -7,7 +7,7 @@ module.exports = function(poetsRepository) {
         if (user !== undefined && user.password === password) {
           callback(null, user);
         } else {
-          callback('Invalid username or password', null);
+          callback(null, null, { message: 'Invalid username or password' });
         }
       });
     }

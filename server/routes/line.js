@@ -6,8 +6,8 @@ module.exports = function(io, dbConfig) {
   return {
     create: function(req, res) {
       var lineData = {
-        poet_id: req.user.id,
-        poem_id: req.body.poem_id,
+        poetId: req.user.id,
+        poemId: req.body.poemId,
         text: req.body.text
       };
 
@@ -15,7 +15,7 @@ module.exports = function(io, dbConfig) {
         if (err) {
           return console.error('***SOCKET.IO ERROR: ' + err);
         }
-        var eventName = 'line-created-for-poem-' + lineData.poem_id;
+        var eventName = 'line-created-for-poem-' + lineData.poemId;
         io.sockets.emit(eventName, poemLine);
         res.send(200);
       });

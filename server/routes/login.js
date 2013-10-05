@@ -10,8 +10,8 @@ module.exports = function(dbConfig) {
       passwordField: 'hashedPassword'
     },
     function(username, password, done) {
-      authenticationService.verify(username, password, function(err, user) {
-        done(err, user);
+      authenticationService.verify(username, password, function(err, user, info) {
+        done(err, user, info);
       });
     }
   ));
@@ -29,8 +29,17 @@ module.exports = function(dbConfig) {
       res.render('login', { title: 'Poem Lab' });
     },
 
-    login: function(req, res) {
-      res.redirect('/poem');
+    login: function(req, res, next) {
+      passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) {
+          return res.render('login', { title: 'Poem Lab', errors: [ info.message ] });
+        }
+        req.login(user, function(err) {
+          if (err) { return next(err); }
+          res.redirect('/poem');
+        });
+      })(req, res, next);
     },
 
     logout: function(req, res) {
