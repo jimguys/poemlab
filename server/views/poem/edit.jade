@@ -4,15 +4,17 @@ block content
   #poem-edit-header-panel
   #poem-edit-header(data-poem-id="#{poem.id}")
     h1= poem.name
+    .poets
+      each poet, index in poets
+        .poet(data-poet-id="#{poet.id}") #{poet.name}
     form.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")
-    .poets
-      each poet, index in poets
-        .poet.poet#{index} #{poet.name}
   #lines
     each line in lines
-      .line= line.text
+      .line(data-poet-id="#{line.poet_id}")
+        .box
+        span= line.text
 
   script(src="/socket.io/socket.io.js")
   script(src="/js/vendor/jquery-1.10.2.min.js")
