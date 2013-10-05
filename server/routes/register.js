@@ -8,7 +8,7 @@ module.exports = function(dbConfig) {
   return {
 
     get: function(req, res) {
-      res.render('register', { title: 'Poem Lab' });
+      res.render('register', { title: 'Poem Lab', user: {} } );
     },
 
     create: function(req, res) {
@@ -20,7 +20,7 @@ module.exports = function(dbConfig) {
 
       poetValidator.validate(userData, function(valid, errors) {
         if(errors.length > 0) {
-          return res.render('register', { title: 'Poem Lab', errors: errors });
+          return res.render('register', { title: 'Poem Lab', user: userData, errors: errors });
         }
 
         poetsRepo.create(userData, function(err, user) {
