@@ -12,10 +12,9 @@ block content
       input(type="submit", value="Post")
   #lines
     each line in lines
-      .line(data-poet-id="#{line.poet_id}")
-        .box
-        span= line.text
+      include ../partials/line
 
   script(src="/socket.io/socket.io.js")
   script(src="/js/vendor/jquery-1.10.2.min.js")
+  script(src="/js/partials.js")
   script(src="/js/poem/edit.js")
