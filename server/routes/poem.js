@@ -1,13 +1,14 @@
 var respond = require('./common').respond;
 
 module.exports = function(dbConfig) {
+  var poetsRepo = require("../repositories/poets_repository")(dbConfig);
   var poemsRepo = require("../repositories/poems_repository")(dbConfig);
   var linesRepo = require("../repositories/lines_repository")(dbConfig);
 
   function readPoemDetails(poem, user, res) {
-    poemsRepo.getPoets(poem.id, function(err, poets) {
+    poetsRepo.forPoem(poem.id, function(err, poets) {
       respond(err, res, function() {
-        readPoemLines(poem, poets, user, res);        
+        readPoemLines(poem, poets, user, res);
       });
     });
   }
