@@ -37,7 +37,7 @@ module.exports = function(dbConfig) {
         }
         req.login(user, function(err) {
           if (err) { return next(err); }
-          res.redirect('/poem');
+          res.redirect('/poems');
         });
       })(req, res, next);
     },
