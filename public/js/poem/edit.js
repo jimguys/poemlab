@@ -13,7 +13,7 @@ $(function() {
 
   (function assignColorsToPoets() {
     var poetColors = [
-      '#8d91b0','#8db099','#abb08d','#b08f8d','#b08daa',
+      '#a8aabd','#8db099','#abb08d','#b08f8d','#b08daa',
       '#8d8db0','#8da6b0','#8db095','#aab08d'];
     var poets = poemContainer.find('.poet').each(function(i, el) {
       $(el).css('background-color', poetColors[i % poetColors.length]);
@@ -24,14 +24,8 @@ $(function() {
   })();
 
   socket.on('line-created-for-poem-' + poemId, function(poemLine) {
-    var lineDiv = $('<div class="line" data-poet-id="' +
-      poemLine.poetId + '"><div class="box"/></div>');
-    $('<span/>', {
-      'text': poemLine.text
-    }).appendTo(lineDiv);
-
+    var lineDiv = $(jade.render('server/views/partials/line.jade', { line: poemLine }));
     lineDiv.appendTo(linesContainer);
-
     assignColorToLine(lineDiv);
     $(document).scrollTop($(document).height());
     lineTextInput.focus();

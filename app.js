@@ -3,6 +3,7 @@ var config = require("./config.js");
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var jade_browser = require('jade-browser');
 
 var app = express();
 var server = http.createServer(app);
@@ -20,6 +21,7 @@ app.use(express.cookieParser());
 app.use(express.session({ secret: config.security.sessionKey }));
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(jade_browser('/js/partials.js', '/server/views/partials/**', { root: __dirname }));
 
 // route registration
 require('./server/routes')(app, io, config.db);

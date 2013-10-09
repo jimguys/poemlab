@@ -1,5 +1,13 @@
+var _ = require('underscore');
+
 module.exports = function(dbConfig) {
   var db = require('./poemlab_database')(dbConfig);
+
+  function mapPoems(rows) {
+    return _.map(rows, function(r) {
+      return { id: r.id, name: r.name };
+    });
+  }
 
   return {
 
@@ -36,20 +44,10 @@ module.exports = function(dbConfig) {
       );
     },
 
-    getPoets: function(poemId, callback) {
-      db.query("select p.* from poets as p inner join poets_poems as pp " +
-        "on p.id = pp.poet_id where pp.poem_id = $1", [poemId],
-        function(err, result) {
-          if(err) { return callback(err); }
-          callback(null, result.rows);
-        }
-      );
-    },
-
     read: function(poemId, callback) {
       db.query("select * from poems where id = $1", [poemId], function(err, result) {
         if (err) { return callback(err); }
-        callback(null, result.rows[0]);
+        callback(null, mapPoems(result.rows)[0]);
       });
     },
 
@@ -62,7 +60,7 @@ module.exports = function(dbConfig) {
     all: function(callback) {
       db.query("select * from poems", [], function(err, result) {
         if (err) { return callback(err); }
-        callback(null, result.rows);
+        callback(null, mapPoems(result.rows));
       });
     },
 
@@ -71,7 +69,7 @@ module.exports = function(dbConfig) {
         "on p.id = pp.poem_id where pp.poet_id = $1", [poetId],
         function(err, result) {
           if(err) { return callback(err); }
-          callback(null, result.rows);
+          callback(null, mapPoems(result.rows));
         }
       );
     }
