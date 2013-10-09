@@ -13,6 +13,7 @@
     "pg": "~2.6.0",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "jade-browser": "marclitchfield/jade-browser"
- }
+    "jade-browser": "marclitchfield/jade-browser",
+    "passport.socketio": "~1.2.1"
+  }
 }

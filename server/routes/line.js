@@ -16,7 +16,7 @@ module.exports = function(io, dbConfig) {
           return console.error('***SOCKET.IO ERROR: ' + err);
         }
         var eventName = 'line-created-for-poem-' + lineData.poemId;
-        io.sockets.emit(eventName, poemLine);
+        io.sockets.in('poem-' + lineData.poemId).emit(eventName, poemLine);
         res.send(200);
       });
     }
