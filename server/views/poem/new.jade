@@ -3,7 +3,7 @@ extends ../layout
 block content
   h1 New Poem
   h3 Create a new poem
-  form(action="/poem", method="post")
+  form(action="/poems", method="post")
     input(type="text", name="name", placeholder="Poem Name", size=50)
     p
       input.poetsearch.typeahead(type="text", placeholder="Add other poets")
