@@ -4,9 +4,9 @@ module.exports = function(io, poetsRepo) {
     client.on('joinPoem', function(poemId) {
       
       var poetId = client.handshake.user.id;
-      poetsRepo.isPoetInPoem(poetId, poemId, function(err, contains) {
+      poetsRepo.isPoetInPoem(poetId, poemId, function(err, poetInPoem) {
         if (err) { process.emit('error', err, 'SOCKET.IO ERROR'); }
-        if (contains) {
+        if (poetInPoem) {
           client.join('poem-' + poemId);
         }
       });
