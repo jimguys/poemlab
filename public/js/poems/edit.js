@@ -40,7 +40,7 @@ $(function() {
       poemId: poemId,
       text: lineTextInput.val()
     };
-    $.post('/line', lineData);
+    $.post('/lines', lineData);
     lineTextInput.val('');
   });
 });

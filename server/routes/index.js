@@ -12,9 +12,9 @@ module.exports = function(app, io, dbConfig) {
 
   var login = require('./login')(dbConfig);
   var register = require('./register')(dbConfig);
-  var poem = require('./poem')(dbConfig);
-  var poet = require('./poet')(dbConfig);
-  var line = require('./line')(io, dbConfig);
+  var poems = require('./poems')(dbConfig);
+  var poets = require('./poets')(dbConfig);
+  var lines = require('./lines')(io, dbConfig);
 
   app.get('/', login.get);
   app.get('/login', login.get);
@@ -25,11 +25,11 @@ module.exports = function(app, io, dbConfig) {
   app.post('/register', register.create);
 
   app.get('/poem', poem.list);
-  app.get('/poem/new', poem.createForm);
-  app.get('/poem/:id', auth.verifyPoetAccess('id'), poem.edit);
+  app.get('/poems/new', poem.createForm);
+  app.get('/poems/:id', auth.verifyPoetAccess('id'), poem.edit);
   app.post('/poem', poem.create);
 
   app.post('/line', auth.verifyPoetAccess('poemId'), line.create);
 
-  app.get('/poet', poet.search);
+  app.get('/poets', poets.search);
 };

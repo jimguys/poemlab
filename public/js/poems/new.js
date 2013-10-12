@@ -7,7 +7,7 @@ $(function() {
     name: 'poets',
     valueKey: 'name',
     remote: {
-      url: '/poet?q=%QUERY',
+      url: '/poets?q=%QUERY',
       filter: function(poets) {
         return poets.filter(function(p) {
           return poetsList.find('input[value=' + p.id + ']').length === 0;
