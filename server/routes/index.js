@@ -24,12 +24,12 @@ module.exports = function(app, io, dbConfig) {
   app.get('/register', register.get);
   app.post('/register', register.create);
 
-  app.get('/poem', poem.list);
-  app.get('/poems/new', poem.createForm);
-  app.get('/poems/:id', auth.verifyPoetAccess('id'), poem.edit);
-  app.post('/poem', poem.create);
+  app.get('/poems', poems.list);
+  app.get('/poems/new', poems.createForm);
+  app.get('/poems/:id', auth.verifyPoetAccess('id'), poems.edit);
+  app.post('/poems', poems.create);
 
-  app.post('/line', auth.verifyPoetAccess('poemId'), line.create);
+  app.post('/lines', auth.verifyPoetAccess('poemId'), lines.create);
 
   app.get('/poets', poets.search);
 };
