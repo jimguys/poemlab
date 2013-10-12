@@ -28,10 +28,18 @@ app.use(jadeBrowser('/js/partials.js', '/server/views/partials/**', { root: __di
 // route registration
 require('./server/routes')(app, io, config.db);
 
+// socket.io functionality
+require('./server/services/socket-events')(io,
+  require('./server/repositories/poets_repository')(config.db));
+
 // error handler
 app.use(function(err, req, res, next) {
-  console.error('***UNHANDLED ERROR: ', err.stack);
+  process.emit('error', err, 'UNHANDLED ERROR');
   res.send(500, 'Internal server error');
+});
+
+process.on('error', function(err, category) {
+  console.error('***' + category || 'ERROR' + ': ', err.stack);
 });
 
 // start the http server
@@ -51,11 +59,3 @@ io.set('authorization', passportSocketIo.authorize({
     accept(null, true);
   }
 }));
-
-io.sockets.on('connection', function(client) {
-  client.on('joinPoem', function(poemId) {
-    // TODO: Validate poet can join poem
-    // using client.handshake.user.id
-    client.join('poem-' + poemId);
-  });
-});

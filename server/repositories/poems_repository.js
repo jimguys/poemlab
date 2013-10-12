@@ -73,5 +73,6 @@ module.exports = function(dbConfig) {
         }
       );
     }
+
   };
 };

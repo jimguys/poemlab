@@ -70,6 +70,15 @@ module.exports = function(dbConfig) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows));
       });
+    },
+
+    isPoetInPoem: function(poetId, poemId, callback) {
+      db.query("select * from poets_poems where poem_id = $1 and poet_id = $2", [poemId, poetId],
+        function(err, result) {
+          if (err) { return callback(err); }
+          callback(null, result.rows.length > 0);
+        }
+      );
     }
   };
 };

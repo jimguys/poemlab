@@ -10,7 +10,7 @@ module.exports = function(dbConfig) {
       passwordField: 'hashedPassword'
     },
     function(username, password, done) {
-      authenticationService.verify(username, password, function(err, user, info) {
+      authenticationService.verifyCredentials(username, password, function(err, user, info) {
         done(err, user, info);
       });
     }
