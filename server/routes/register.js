@@ -26,7 +26,7 @@ module.exports = function(dbConfig) {
         poetsRepo.create(userData, function(err, user) {
           respond(err, res, function() {
             passport.authenticate('local')(req, res, function() {
-              res.redirect('/poem');
+              res.redirect('/poems');
             });
           });
         });

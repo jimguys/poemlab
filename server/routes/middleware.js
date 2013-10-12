@@ -19,7 +19,7 @@ function signedOut(req) {
 module.exports = {
   redirectBasedOnLoggedInStatus: function(req, res, next) {
     if (signedIn(req) && requestingSignedOutRoute(req)) {
-      res.redirect('/poem');
+      res.redirect('/poems');
     } else if (signedOut(req) && requestingSignedInRoute(req)) {
       res.redirect('/');
     } else {
