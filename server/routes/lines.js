@@ -12,11 +12,9 @@ module.exports = function(io, dbConfig) {
       };
 
       linesRepo.create(lineData, function(err, poemLine) {
-        if (err) {
-          return console.error('***SOCKET.IO ERROR: ' + err);
-        }
+        if (err) { return process.emit('error', err, 'SOCKET.IO ERROR'); }
         var eventName = 'line-created-for-poem-' + lineData.poemId;
-        io.sockets.emit(eventName, poemLine);
+        io.sockets.in('poem-' + lineData.poemId).emit(eventName, poemLine);
         res.send(200);
       });
     }

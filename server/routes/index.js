@@ -7,6 +7,9 @@ module.exports = function(app, io, dbConfig) {
   app.use(middleware.redirectBasedOnLoggedInStatus);
   app.use(app.router);
 
+  var poetsRepo = require('../repositories/poets_repository')(dbConfig);
+  var auth = require('../services/authentication_service')(poetsRepo);
+
   var login = require('./login')(dbConfig);
   var register = require('./register')(dbConfig);
   var poems = require('./poems')(dbConfig);
@@ -23,10 +26,10 @@ module.exports = function(app, io, dbConfig) {
 
   app.get('/poems', poems.list);
   app.get('/poems/new', poems.createForm);
-  app.get('/poems/:id', poems.edit);
+  app.get('/poems/:id', auth.verifyPoetAccess({ poemIdField: 'id' }), poems.edit);
   app.post('/poems', poems.create);
 
-  app.post('/lines', lines.create);
+  app.post('/lines', auth.verifyPoetAccess({ poemIdField: 'poemId' }), lines.create);
 
   app.get('/poets', poets.search);
 };

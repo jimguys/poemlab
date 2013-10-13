@@ -5,6 +5,10 @@ $(function() {
   var linesContainer = $('#lines');
   var lineTextInput = poemContainer.find('.line-text');
 
+  socket.on('connect', function() {
+    socket.emit('joinPoem', poemId);
+  });
+
   function assignColorToLine(lineElement) {
     var poetId = $(lineElement).data('poet-id');
     var poetColor = poemContainer.find('.poet[data-poet-id=' + poetId + ']').css('background-color');
