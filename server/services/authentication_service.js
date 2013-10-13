@@ -15,10 +15,10 @@ module.exports = function(poetsRepository) {
       });
     },
 
-    verifyPoetAccess: function(poemIdProperty) {
+    verifyPoetAccess: function(options) {
       return function(req, res, next) {
         var poetId = req.user.id;
-        var poemId = _.extend(req.params, req.body)[poemIdProperty];
+        var poemId = _.extend(req.params, req.body)[options.poemIdField];
 
         poetsRepository.isPoetInPoem(poetId, poemId, function(err, isInPoem) {
           if (err) { return next(err); }

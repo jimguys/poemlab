@@ -26,10 +26,10 @@ module.exports = function(app, io, dbConfig) {
 
   app.get('/poems', poems.list);
   app.get('/poems/new', poems.createForm);
-  app.get('/poems/:id', auth.verifyPoetAccess('id'), poems.edit);
+  app.get('/poems/:id', auth.verifyPoetAccess({ poemIdField: 'id' }), poems.edit);
   app.post('/poems', poems.create);
 
-  app.post('/lines', auth.verifyPoetAccess('poemId'), lines.create);
+  app.post('/lines', auth.verifyPoetAccess({ poemIdField: 'poemId' }), lines.create);
 
   app.get('/poets', poets.search);
 };
