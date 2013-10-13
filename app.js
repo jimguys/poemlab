@@ -5,12 +5,14 @@ var http = require('http');
 var path = require('path');
 var jadeBrowser = require('jade-browser');
 var passportSocketIo = require("passport.socketio");
+var RedisStore = require('connect-redis')(express);
 
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 io.set('log level', 1);
-var sessionStore = new express.session.MemoryStore();
+
+var sessionStore = new RedisStore();
 
 // all environments
 app.set('port', process.env.PORT || 80);
