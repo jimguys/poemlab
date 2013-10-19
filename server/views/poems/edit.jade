@@ -1,12 +1,14 @@
 extends ../layout
 
 block content
+  include ../partials/poet-color
+
   #poem-edit-header-panel
   #poem-edit-header(data-poem-id="#{poem.id}")
     h1= poem.name
     .poets
-      each poet, index in poets
-        .poet(data-poet-id="#{poet.id}") #{poet.name}
+      each poet in poets
+        .poet(data-poet-id="#{poet.id}", class="#{poetColorClass(poet.id)}") #{poet.name}
     form.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")

@@ -78,6 +78,16 @@ h1 {
   margin-left: 2px;
 }
 
+.poet-color-0 { background-color: #a8aabd; }
+.poet-color-1 { background-color: #8db099; }
+.poet-color-2 { background-color: #abb08d; }
+.poet-color-3 { background-color: #b08f8d; }
+.poet-color-4 { background-color: #b08daa; }
+.poet-color-5 { background-color: #8d8db0; }
+.poet-color-6 { background-color: #8da6b0; }
+.poet-color-7 { background-color: #8db095; }
+.poet-color-8 { background-color: #aab08d; }
+
 .poet {
   margin-right: 3px;
   text-align: center;
