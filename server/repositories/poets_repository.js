@@ -5,15 +5,15 @@ module.exports = function(dbConfig) {
 
   function mapPoets(rows) {
     return _.map(rows, function(r) {
-      return { id: r.id, name: r.name, email: r.email, password: r.password };
+      return { id: r.id, username: r.username, email: r.email, password: r.password };
     });
   }
 
   return {
     create: function(userData, callback) {
       var params = _.values(_.pick(userData, ["username", "email", "password"]));
-      db.query("insert into poets (name, email, password) values ($1, $2, $3) " +
-          "returning id, name, email", params,
+      db.query("insert into poets (username, email, password) values ($1, $2, $3) " +
+          "returning id, username, email", params,
         function(err, result) {
           if (err) { return callback(err); }
           callback(null, mapPoets(result.rows)[0]);
@@ -29,7 +29,7 @@ module.exports = function(dbConfig) {
     },
 
     readByUsername: function(username, callback) {
-      db.query("select * from poets where name = $1", [username], function(err, result) {
+      db.query("select * from poets where username = $1", [username], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
@@ -53,7 +53,7 @@ module.exports = function(dbConfig) {
     },
 
     search: function(query, callback) {
-      db.query("select * from poets where name ilike $1 limit 20", [query + "%"], function(err, result) {
+      db.query("select * from poets where username ilike $1 limit 20", [query + "%"], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows));
       });

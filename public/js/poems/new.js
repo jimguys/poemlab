@@ -5,7 +5,7 @@ $(function() {
 
   poetSearch.typeahead({
     name: 'poets',
-    valueKey: 'name',
+    valueKey: 'username',
     remote: {
       url: '/poets?q=%QUERY',
       filter: function(poets) {
@@ -16,7 +16,7 @@ $(function() {
     }
   }).on('typeahead:selected', function(element, poet) {
     var li = $('<li/>', {
-      text: poet.name
+      text: poet.username
     }).appendTo(poetsList);
 
     $('<input/>', {
