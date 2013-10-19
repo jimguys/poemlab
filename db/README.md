@@ -3,6 +3,8 @@
 These instructions were written specifically to work on Ubuntu, so if you
 are on a different OS your mileage may vary.
 
+## PostgreSQL
+
 The instructions assume you have installed postgresql in a standard way, which
 includes creating a system user named postgres and a PostgreSQL superuser
 also named postgres. It also assumes you have your PostgreSQL pg_hba.conf file
@@ -36,4 +38,25 @@ Now you should be able to connect to the newly created database with
 
 ```
 psql -U poemlab
+```
+
+## Migrations (db-migrate)
+
+Once the database is created and the schema is loaded you will need to run all of
+the migrations. We are using the db-migrate module for these. To get that setup, run:
+
+```
+sudo npm install -g db-migrate
+sudo npm install -g pg
+```
+
+This will give you the db-migrate command globally and allow db-migrate to access the
+pg module to interface with postgres.
+
+Once you have that setup, cd into the `db` directory and copy `database.example.json`
+to `database.json` and configure the params accordingly. Then, still in the `db` directory
+run the following to run all pending migrations:
+
+```
+db-migrate up
 ```
