@@ -8,7 +8,7 @@ block content
     p
       input.poetsearch.typeahead(type="text", placeholder="Add other poets")
       ul.poets
-        li.poet= user.name
+        li.poet= user.username
           input(type="hidden", name="poets", value="#{user.id}")
     input(type="submit", value="Start Poem")
 

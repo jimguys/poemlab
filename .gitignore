@@ -4,3 +4,4 @@ npm-debug.log
 *.log
 config/db.json
 config/security.json
+db/database.json

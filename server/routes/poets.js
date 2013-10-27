@@ -10,7 +10,7 @@ module.exports = function(dbConfig) {
       poetsRepo.search(req.query.q, function(err, poets) {
         respond(err, res, function() {
           var poetData = _.map(poets, function(p) {
-            return _.pick(p, ['id', 'name']);
+            return _.pick(p, ['id', 'username']);
           });
           res.json(poetData);
         });
