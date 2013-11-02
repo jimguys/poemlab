@@ -7,6 +7,11 @@ html
   body
     .login-panel
       if user
-        div #{user.username} &bull;&nbsp;
-          a(href="/logout") logout
+        nav
+          ul
+            li #{user.username}
+            li
+              a(href="/poems") poems
+            li
+              a(href="/logout") logout
     block content
