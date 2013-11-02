@@ -1,20 +1,23 @@
 var respond = require('./common').respond;
 
-module.exports = function(io, dbConfig) {
+module.exports = function(io, dbConfig, poemRegistry) {
   var linesRepo = require("../repositories/lines_repository")(dbConfig);
 
   return {
-    create: function(req, res) {
-      var lineData = {
-        poetId: req.user.id,
-        poemId: req.body.poemId,
-        text: req.body.text
-      };
+    create: function(req, res, next) {
+      poemRegistry.get(req.body.poemId, function(err, poem) {
+        if (err) { next(err); }
+        var lineData = {
+          poetId: req.user.id,
+          text: req.body.text
+        };
 
-      linesRepo.create(lineData, function(err, poemLine) {
-        if (err) { return process.emit('error', err, 'SOCKET.IO ERROR'); }
-        var eventName = 'line-created-for-poem-' + lineData.poemId;
-        io.sockets.in('poem-' + lineData.poemId).emit(eventName, poemLine);
+        var line = poem.submitLine(lineData);
+        var room = 'poem-' + line.poemId;
+        io.sockets.in(room).emit('line-created-for-poem-' + line.poemId, line);
+
+        var poet = poem.selectNextPoet();
+        io.sockets.in(room).emit('poet-turn-in-poem-' + lineData.poemId, poet);
         res.send(200);
       });
     }

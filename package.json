@@ -18,6 +18,7 @@
     "connect-redis": "~1.4.5"
   },
   "devDependencies": {
-    "db-migrate": "~0.6.2"
+    "db-migrate": "~0.6.2",
+    "sinon": "~1.7.3"
   }
 }

@@ -1,10 +1,10 @@
-var config = require("./config.js");
+var config = require('./config.js');
 
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var jadeBrowser = require('jade-browser');
-var passportSocketIo = require("passport.socketio");
+var passportSocketIo = require('passport.socketio');
 var RedisStore = require('connect-redis')(express);
 
 var app = express();
@@ -13,6 +13,7 @@ var io = require('socket.io').listen(server);
 io.set('log level', 1);
 
 var sessionStore = new RedisStore();
+var poemRegistry = require('./server/services/poem_registry')(config.db);
 
 // all environments
 app.set('port', process.env.PORT || 80);
@@ -28,10 +29,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(jadeBrowser('/js/partials.js', '/server/views/partials/**', { root: __dirname }));
 
 // route registration
-require('./server/routes')(app, io, config.db);
+require('./server/routes')(app, io, config.db, poemRegistry);
 
 // socket.io functionality
-require('./server/services/socket-events')(io,
+require('./server/services/socket_events')(io,
   require('./server/repositories/poets_repository')(config.db));
 
 // error handler

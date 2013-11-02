@@ -1,7 +1,7 @@
 var passport = require('passport');
 var middleware = require('./middleware.js');
 
-module.exports = function(app, io, dbConfig) {
+module.exports = function(app, io, dbConfig, poemRegistry) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(middleware.redirectBasedOnLoggedInStatus);
@@ -12,9 +12,9 @@ module.exports = function(app, io, dbConfig) {
 
   var login = require('./login')(dbConfig);
   var register = require('./register')(dbConfig);
-  var poems = require('./poems')(dbConfig);
+  var poems = require('./poems')(dbConfig, poemRegistry);
   var poets = require('./poets')(dbConfig);
-  var lines = require('./lines')(io, dbConfig);
+  var lines = require('./lines')(io, dbConfig, poemRegistry);
 
   app.get('/', login.get);
   app.get('/login', login.get);

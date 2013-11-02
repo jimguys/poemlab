@@ -2,9 +2,9 @@
 // Not an actual test!
 
 var pg = require('pg');
-var config = require("../../config");
-var poetsRepo = require("../repositories/poets_repository")(config.db);
-var poetValidator = require("../services/poet_validator")(poetsRepo);
+var config = require("../../../config");
+var poetsRepo = require("../../../server/repositories/poets_repository")(config.db);
+var poetValidator = require("../../../server/services/poet_validator")(poetsRepo);
 
 var emptyPoet = {};
 var invalidEmailPoet = { username: "nonexistent", email: "nonexistent", password: "075f0956584cfa8d32beb384fcf51ce3ee30a7e5aeee6434acc222928a30db3e" };

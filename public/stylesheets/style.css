@@ -21,6 +21,10 @@ li {
   list-style: none;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .tt-dropdown-menu {
   width: 422px;
   margin-top: 2px;
@@ -115,6 +119,10 @@ h1 {
   margin-bottom: 2px;
   vertical-align: middle;
   border: 1px solid #89949a;
+}
+
+.waitpanel {
+  padding: 15px 2px;  
 }
 
 .error {
