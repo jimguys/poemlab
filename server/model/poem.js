@@ -7,15 +7,17 @@ module.exports = function Poem(attributes, poets, lines) {
   lines = lines || [];
 
   return _.extend({
-    submitLine: function(line, callback) {
-      lines.push(line);
+    submitLine: function(line) {
       var submitted = _.extend({}, { poemId: attributes.id }, line);
+      lines.push(submitted);
       this.emit('lineSubmitted', submitted);
       return submitted;
     },
 
-    selectNextPoet: function(callback) {
-
+    selectNextPoet: function() {
+      var next = poets.splice(-1)[0];
+      poets.splice(0, 0, next);
+      return next;
     },
 
     lines: lines,
