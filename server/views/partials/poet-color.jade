@@ -1,5 +1,3 @@
-- var poetColorClass = function(poetId, poets){
--   for(var i=0; i<poets.length; i++) {
--     if (poets[i].id === poetId) { return "poet-color-" + (i % 9); }
--   }
+- var poetColorClass = function(poetPosition){
+-   return "poet-color-" + (poetPosition % 9);
 - }

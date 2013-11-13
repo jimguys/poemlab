@@ -22,7 +22,7 @@ li {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .tt-dropdown-menu {

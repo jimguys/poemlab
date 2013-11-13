@@ -4,13 +4,13 @@ block content
   include ../partials/poet-color
 
   #poem-edit-header-panel
-  #poem-edit-header(data-poem-id="#{poem.id}")
+  #poem-edit-header(data-poem-id="#{poem.id}", data-poet-id="#{user.id}", data-current-poet-id="#{poem.poets[0].id}")
     h1= poem.name
     .poets
       each poet in poem.poets
-        .poet(data-poet-id="#{poet.id}", class="#{poetColorClass(poet.id, poem.poets)}") #{poet.username}
-    //.waitpanel Waiting for your turn ...
-    form.hidde.newline-form(action="javascript:void(0)", data-poet-id="#{user.id}")
+        .poet(data-poet-id="#{poet.id}", class="#{poetColorClass(poet.position)}") #{poet.username}
+    .waitpanel Waiting for your turn ...
+    form.hidden.newline-form(action="javascript:void(0)")
       input.line-text(type="text", size=100)
       input(type="submit", value="Post")
   #lines

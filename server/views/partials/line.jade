@@ -1,5 +1,5 @@
 include poet-color
 
 .line(data-poet-id="#{line.poetId}")
-  .box(class="#{poetColorClass(line.poetId, poets)}")
+  .box(class="#{poetColorClass(line.poet.position)}")
   span= line.text

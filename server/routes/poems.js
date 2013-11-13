@@ -25,7 +25,7 @@ module.exports = function(dbConfig, poemRegistry) {
       var poemId = req.params.id;
       poemRegistry.get(poemId, function(err, poem) {
         respond(err, res, function() {
-          res.render('poems/edit', { poem: poem, user: req.user, poets: poem.poets });
+          res.render('poems/edit', { poem: poem, user: req.user });
         });
       });
     },
