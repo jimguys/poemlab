@@ -27,6 +27,10 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(jadeBrowser('/js/partials.js', '/server/views/partials/**', { root: __dirname }));
 
+app.configure(function(){
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
 // route registration
 require('./server/routes')(app, io, config.db);
 
