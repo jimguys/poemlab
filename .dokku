@@ -1,0 +1,5 @@
+apps:create poemlab
+redis:create poemlab
+redis:link poemlab poemlab
+postgres:create poemlab
+postgres:link poemlab poemlab

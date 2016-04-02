@@ -1,8 +1,6 @@
 var _ = require('underscore');
 
-module.exports = function(dbConfig) {
-  var db = require('./poemlab_database')(dbConfig);
-
+module.exports = function(db) {
   function mapLines(rows) {
     return _.map(rows, function(r) {
       return { id: r.id, poemId: r.poem_id, poetId: r.poet_id, text: r.text };

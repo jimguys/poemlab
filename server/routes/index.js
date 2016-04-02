@@ -1,20 +1,20 @@
 var passport = require('passport');
 var middleware = require('./middleware.js');
 
-module.exports = function(app, io, dbConfig) {
+module.exports = function(app, db, io) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(middleware.redirectBasedOnLoggedInStatus);
   app.use(app.router);
 
-  var poetsRepo = require('../repositories/poets_repository')(dbConfig);
+  var poetsRepo = require('../repositories/poets_repository')(db);
   var auth = require('../services/authentication_service')(poetsRepo);
 
-  var login = require('./login')(dbConfig);
-  var register = require('./register')(dbConfig);
-  var poems = require('./poems')(dbConfig);
-  var poets = require('./poets')(dbConfig);
-  var lines = require('./lines')(io, dbConfig);
+  var login = require('./login')(db);
+  var register = require('./register')(db);
+  var poems = require('./poems')(db);
+  var poets = require('./poets')(db);
+  var lines = require('./lines')(db, io);
 
   app.get('/', login.get);
   app.get('/login', login.get);
