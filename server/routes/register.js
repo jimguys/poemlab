@@ -1,11 +1,11 @@
 var respond = require('./common').respond;
 var passport = require('passport');
 
-module.exports = function(dbConfig) {
-  var poetsRepo = require("../repositories/poets_repository")(dbConfig);
+module.exports = function(db) {
+  var poetsRepo = require("../repositories/poets_repository")(db);
   var poetValidator = require('../services/poet_validator')(poetsRepo);
 
-  return {
+ return {
 
     get: function(req, res) {
       res.render('register', { title: 'Poem Lab', user: {} } );
