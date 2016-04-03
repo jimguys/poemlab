@@ -8,7 +8,7 @@ module.exports = function(app, db, io) {
   app.use(app.router);
 
   var poetsRepo = require('../repositories/poets_repository')();
-  var auth = require('../services/authentication_service')();
+  var auth = require('../services/authentication_service')(poetsRepo);
 
   var login = require('./login')(db);
   var register = require('./register')(db);
