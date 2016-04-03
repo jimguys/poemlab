@@ -3,7 +3,7 @@
 
 var pg = require('pg');
 var config = require("../../config");
-var poetsRepo = require("../repositories/poets_repository")();
+var poetsRepo = require("../repositories/poets_repository")(db);
 var poetValidator = require("../services/poet_validator")(poetsRepo);
 
 var emptyPoet = {};

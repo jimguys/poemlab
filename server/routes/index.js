@@ -7,7 +7,7 @@ module.exports = function(app, db, io) {
   app.use(middleware.redirectBasedOnLoggedInStatus);
   app.use(app.router);
 
-  var poetsRepo = require('../repositories/poets_repository')();
+  var poetsRepo = require('../repositories/poets_repository')(db);
   var auth = require('../services/authentication_service')(poetsRepo);
 
   var login = require('./login')(db);
