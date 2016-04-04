@@ -11,7 +11,7 @@ Poemlab can be deployed into a dokku environment.
 1. Set up a dokku environment.
 To set up a local dokku environment on vagrant, follow these instructions: http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/. This will set up a local host entry, dokku.me, that refers to the dokku environment within vagrant.
 
-For a publicaly accessible installation, digital ocean provides a dokku droplet template.
+For a publicly accessible installation, digital ocean provides a dokku droplet template.
 
 2. Dokku plugin installation.
 ssh into the machine running the dokku environment as a sudoer (not as the dokku user), and perform the dokku plugin installation:
@@ -54,6 +54,7 @@ You should see these environment variables, although the values may differ:
   ```
 
 ### Deployment
+Dokku will build and deploy the application when the code is pushed via git.
 
 1. Add a git remote to the dokku environment.
 
@@ -72,6 +73,7 @@ Alternatively, add a remote to a production dokku environment.
 3. Verify the application is running at ```http://poemlab.dokku.me```, or in the production environment if that is where you pushed.
 
 ### Development
+Deploying to dokku each time a change is made is a slow feedback loop for development. For a faster feedback loop, set up the application on your machine and run it outside of dokku. You can set up the databases on your machine as well, but you may find it easier to use your local dokku environment to host the storage resources for development purposes.
 
   First expose the ports from dokku. Pick ports that do not conflict with other ports you may have exposed on the vagrant vm:
   ```
