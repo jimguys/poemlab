@@ -73,12 +73,17 @@ Deploying to dokku each time a change is made is a slow feedback loop for develo
   ssh dokku@dokku.me redis:expose poemlab 63790
   ```
 
-  2. Next, forward these ports through your vagrant provider (e.g. VirtualBox).
+  2. Next, forward these ports through your vagrant provider (e.g. VirtualBox). There are two levels of port-forwarding happening here: the databases expose a port which is then exposed from the docker container and made accessible to the vagrant provider, then the vagrant provider forwards ports to make them accessible to your host machine. In these instructions, the ports are forwarded as follows:
+  ```
+    5432 (docker) -> 54320 (vagrant) -> 54321 (host)
+    6379 (docker) -> 63790 (vagrant) -> 63791 (host)
+  ```
+  You don't have to use different port numbers for each layer, you just have to ensure that there are no conflicts between other port assignments.
 
   3. Export environment variables, using the ports you forwarded through your vagrant provider.
   ```
-  export DATABASE_URL=postgres://postgres:<password>@dokku.me:54320/poemlab
-  export REDIS_URL=redis://dokku.me:63790/0
+  export DATABASE_URL=postgres://postgres:<password>@dokku.me:54321/poemlab
+  export REDIS_URL=redis://dokku.me:63791/0
   export SESSION_KEY="secret key"
   ```  
 
