@@ -32,12 +32,18 @@ Poemlab can be deployed into a dokku environment.
   ssh dokku@dokku.me config:set poemlab SESSION_KEY="secret\ key"
   ```
 
-4. Create the database schema.
+4. Clone this repo in the location where you want the project to live (not in the dokku directory).
   ```
+  git clone https://github.com/jimguys/poemlab.git
+  ```
+
+5. Change to directory where you cloned the project and create the database schema.
+  ```
+  cd poemlab
   ssh dokku@dokku.me postgres:connect poemlab < db/schema.sql
   ```
 
-5. Verify the configuration.
+6. Verify the configuration.
   ```
   ssh dokku@dokku.me config poemlab
   ```
