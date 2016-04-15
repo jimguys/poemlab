@@ -9,11 +9,11 @@ module.exports = function(db) {
 
   return {
 
-    create: function(poemData, callback) {
-      db.query("insert into poems (name) values ($1) returning id", [poemData.name], function(err, result) {
+    create: function(poem, callback) {
+      db.query("insert into poems (name) values ($1) returning id", [poem.name], function(err, result) {
         if (err) { return callback(err); }
-        var poem = { id: result.rows[0].id, name: poemData.name };
-        callback(null, poem);
+        var id = result.rows[0].id;
+        callback(null, id);
       });
     },
 

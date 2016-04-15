@@ -2,16 +2,18 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/normalize.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/app.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1")
   body
-    .login-panel
-      if user
-        nav
-          ul
-            li #{user.username}
-            li
-              a(href="/poems") poems
-            li
+    .top-bar
+      .title-area
+        strong
+          a(href="/poems") Poemlab
+      .top-bar-section
+        .right
+          if user && user.id
+              strong #{user.username} | 
               a(href="/logout") logout
-    block content
+    .row
+      block content

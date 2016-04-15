@@ -1,10 +1,11 @@
 extends ../layout
 
 block content
-  h1 Poem List
-  ul
-    each poem in poems
-      li
-        a(href="/poems/#{poem.id}")= poem.name
-  hr
-  a(href="/poems/new") New Poem
+  .column
+    h1 Poems
+    ul
+      each poem in poems
+        li
+          a(href="/poems/#{poem.id}")= poem.name
+    hr
+    a.button(href="/poems/new") New Poem

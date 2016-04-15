@@ -4,16 +4,17 @@ module.exports = function(db, io) {
   var linesRepo = require("../repositories/lines_repository")(db);
   return {
     create: function(req, res) {
-      var lineData = {
-        poetId: req.user.id,
-        poemId: req.body.poemId,
+      var line = {
+        poet: { id: req.user.id, color: req.user.id % 5 },
+        poem: { id: req.body.poemId },
         text: req.body.text
       };
 
-      linesRepo.create(lineData, function(err, poemLine) {
+      linesRepo.create(line, function(err, id) {
         if (err) { return process.emit('error', err, 'SOCKET.IO ERROR'); }
-        var eventName = 'line-created-for-poem-' + lineData.poemId;
-        io.sockets.in('poem-' + lineData.poemId).emit(eventName, poemLine);
+        var eventName = 'line-created-for-poem-' + line.poem.id;
+        line.id = id;
+        io.sockets.in('poem-' + line.poem.id).emit(eventName, line);
         res.send(200);
       });
     }

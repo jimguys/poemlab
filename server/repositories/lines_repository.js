@@ -3,7 +3,7 @@ var _ = require('underscore');
 module.exports = function(db) {
   function mapLines(rows) {
     return _.map(rows, function(r) {
-      return { id: r.id, poemId: r.poem_id, poetId: r.poet_id, text: r.text };
+      return { id: r.id, poem: { id: r.poem_id }, poet: { id: r.poet_id, color: r.poet_id % 5 }, text: r.text };
     });
   }
 
@@ -11,10 +11,10 @@ module.exports = function(db) {
 
     create: function(line, callback) {
       var sql = "insert into lines (poem_id, poet_id, text) values ($1, $2, $3) returning id";
-      db.query(sql, [line.poemId, line.poetId, line.text], function(err, result) {
+      db.query(sql, [line.poem.id, line.poet.id, line.text], function(err, result) {
         if (err) { return callback(err); }
-        var createdLine = _.extend(line, { id: result.rows[0].id });
-        callback(null, createdLine);
+        var id = result.rows[0].id;
+        callback(null, id);
       });
     },
 

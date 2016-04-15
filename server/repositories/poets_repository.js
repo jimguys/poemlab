@@ -4,18 +4,19 @@ module.exports = function(db) {
 
   function mapPoets(rows) {
     return _.map(rows, function(r) {
-      return { id: r.id, username: r.username, email: r.email, password: r.password };
+      return { id: r.id, username: r.username, email: r.email, password: r.password, color: r.id % 5 };
     });
   }
 
   return {
-    create: function(userData, callback) {
-      var params = _.values(_.pick(userData, ["username", "email", "password"]));
+    create: function(poet, callback) {
+      var params = _.values(_.pick(poet, ["username", "email", "password"]));
       db.query("insert into poets (username, email, password) values ($1, $2, $3) " +
           "returning id, username, email", params,
         function(err, result) {
           if (err) { return callback(err); }
-          callback(null, mapPoets(result.rows)[0]);
+          var id = result.rows[0].id;
+          callback(null, id);
         }
       );
     },

@@ -1,0 +1,86 @@
+h1 {
+  font-size: 2em;
+}
+
+ul {
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.top-bar {
+  color: white;
+  margin-bottom: 1.5em;
+}
+
+.top-bar a {
+  color: white;
+}
+
+.top-bar-right {
+  text-align: right;
+}
+
+.top-bar-right a {
+  color: #888ac3;
+}
+
+.tt-dropdown-menu {
+  width: 422px;
+  margin-top: 2px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 10px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.box {
+  width: 1em;
+  height: .8em;
+  display: inline-block;
+  margin-right: .2em;
+  margin-bottom: -0.1em;
+  text-align: middle;
+  border-radius: .1em;
+}
+
+.poet {
+  border-radius: .2em;
+  text-align: center;
+  margin-top: .2em;
+  overflow: hidden;
+  text-overflow: clip;
+  max-width: 10em;
+}
+
+.poet-list, .poets {
+  margin-bottom: 1em;
+}
+
+.poem-lines {
+  margin-bottom: 1em;
+}
+
+.poet-color-0 { background-color: #33b5e5; }
+.poet-color-1 { background-color: #ffbb33; }
+.poet-color-2 { background-color: #99cc00; }
+.poet-color-3 { background-color: #aa66cc; }
+.poet-color-4 { background-color: #ff4444; }

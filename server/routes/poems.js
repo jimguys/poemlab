@@ -49,13 +49,15 @@ module.exports = function(db) {
     },
 
     createForm: function(req, res) {
-      res.render('poems/new', { user: req.user });
+      res.render('poems/new', { user: req.user, poets: [] });
     },
 
     create: function(req, res) {
-      poemsRepo.create({ name: req.body.name }, function(err, poem) {
+      var poem = { name: req.body.name };
+      poemsRepo.create(poem, function(err, id) {
         respond(err, res, function() {
           var poetIds = [].concat(req.body.poets);
+          poem.id = id;
           addPoetsToPoem(poem, poetIds, res);
         });
       });

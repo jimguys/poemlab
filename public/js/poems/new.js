@@ -1,7 +1,8 @@
 $(function() {
 
-  var poetSearch = $('.poetsearch');
-  var poetsList = poetSearch.closest('form').find('.poets');
+  var poetSearch = $('.poet-search');
+  var poetsList = $('.poet-list');
+  var poets = [];
 
   poetSearch.typeahead({
     name: 'poets',
@@ -15,16 +16,12 @@ $(function() {
       }
     }
   }).on('typeahead:selected', function(element, poet) {
-    var li = $('<li/>', {
-      text: poet.username
-    }).appendTo(poetsList);
+    poets.push(poet);
+    var div = $(jade.render('server/views/partials/poets.jade', {
+      poets: poets
+    }));
 
-    $('<input/>', {
-      type: 'hidden',
-      name: 'poets',
-      value: poet.id
-    }).appendTo(li);
-
+    poetsList.html(div);
     $(this).typeahead('setQuery', '');
   });
 });

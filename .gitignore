@@ -5,3 +5,4 @@ npm-debug.log
 config/db.json
 config/security.json
 db/database.json
+.env

@@ -26,14 +26,14 @@ module.exports = function(db) {
 
   return {
     get: function(req, res) {
-      res.render('login', { title: 'Poem Lab' });
+      res.render('login', { title: 'Poemlab' });
     },
 
     login: function(req, res, next) {
       passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) {
-          return res.render('login', { title: 'Poem Lab', errors: [ info.message ] });
+          return res.render('login', { title: 'Poemlab', errors: [ info.message ] });
         }
         req.login(user, function(err) {
           if (err) { return next(err); }

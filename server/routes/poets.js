@@ -9,7 +9,7 @@ module.exports = function(db) {
       poetsRepo.search(req.query.q, function(err, poets) {
         respond(err, res, function() {
           var poetData = _.map(poets, function(p) {
-            return _.pick(p, ['id', 'username']);
+            return _.pick(p, ['id', 'username', 'color']);
           });
           res.json(poetData);
         });
