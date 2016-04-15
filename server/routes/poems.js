@@ -1,4 +1,5 @@
 var respond = require('./common').respond;
+var _ = require('underscore');
 
 module.exports = function(db) {
   var poetsRepo = require("../repositories/poets_repository")(db);
@@ -49,7 +50,8 @@ module.exports = function(db) {
     },
 
     createForm: function(req, res) {
-      res.render('poems/new', { user: req.user, poets: [] });
+      var poet = _.pick(req.user, ['id', 'username', 'color']);
+      res.render('poems/new', { user: req.user, poets: [poet] });
     },
 
     create: function(req, res) {

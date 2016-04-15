@@ -1,5 +1,5 @@
 block content
   ul.poets
     each poet in poets
-      li.poet(class="poet-color-#{poet.color}", data-poet-id="#{poet.id}")= poet.username
-      input(type="hidden", name="poets", value="#{poet.id}")
+      li.poet(class="poet-color-#{poet.color}", data-poet="#{JSON.stringify(poet)}")= poet.username
+      input(type="hidden", name="poets[]", value="#{poet.id}")

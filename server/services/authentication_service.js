@@ -15,14 +15,14 @@ module.exports = function(poetsRepository) {
       });
     },
 
-    verifyPoetAccess: function(options) {
+    verifyPoetAccess: function(poemIdFunction) {
       return function(req, res, next) {
         var poetId = req.user.id;
-        var poemId = _.extend(req.params, req.body)[options.poemIdField];
+        var poemId = poemIdFunction(req);
 
         poetsRepository.isPoetInPoem(poetId, poemId, function(err, isInPoem) {
           if (err) { return next(err); }
-          if (!isInPoem) { return res.send(403); }
+          if (!isInPoem) { return res.send(403, 'not in poem: ' + poetId + ',' + poemId); }
           next();
         });
       };

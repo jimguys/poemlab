@@ -1,8 +1,7 @@
 $(function() {
-
   var poetSearch = $('.poet-search');
   var poetsList = $('.poet-list');
-  var poets = [];
+  var poets = poetsList.find('.poet').map(function() { return $(this).data('poet'); });
 
   poetSearch.typeahead({
     name: 'poets',
