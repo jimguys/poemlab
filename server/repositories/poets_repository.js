@@ -4,7 +4,7 @@ module.exports = function(db) {
 
   function mapPoets(rows) {
     return _.map(rows, function(r) {
-      return { id: r.id, username: r.username, email: r.email, password: r.password, color: r.id % 5 };
+      return { id: r.id, username: r.username, email: r.email, password: r.password, position: r.position };
     });
   }
 
@@ -22,29 +22,29 @@ module.exports = function(db) {
     },
 
     read: function(userId, callback) {
-      db.query("select * from poets where id = $1", [userId], function(err, result) {
+      db.query("select id, username from poets where id = $1", [userId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
     },
 
     readByUsername: function(username, callback) {
-      db.query("select * from poets where username = $1", [username], function(err, result) {
+      db.query("select id, username from poets where username = $1", [username], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
     },
 
     readByEmail: function(email, callback) {
-      db.query("select * from poets where email = $1", [email], function(err, result) {
+      db.query("select id, username from poets where email = $1", [email], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
     },
 
     forPoem: function(poemId, callback) {
-      db.query("select p.* from poets as p inner join poets_poems as pp " +
-        "on p.id = pp.poet_id where pp.poem_id = $1", [poemId],
+      db.query("select p.id, p.username, pp.position from poets as p inner join poets_poems as pp " +
+        "on p.id = pp.poet_id where pp.poem_id = $1 order by pp.position", [poemId],
         function(err, result) {
           if(err) { return callback(err); }
           callback(null, mapPoets(result.rows));
@@ -53,7 +53,7 @@ module.exports = function(db) {
     },
 
     search: function(query, callback) {
-      db.query("select * from poets where username ilike $1 limit 20", [query + "%"], function(err, result) {
+      db.query("select id, username from poets where username ilike $1 limit 20", [query + "%"], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows));
       });
@@ -66,14 +66,14 @@ module.exports = function(db) {
     },
 
     all: function(callback) {
-      db.query("select * from poets", [], function(err, result) {
+      db.query("select poet_id, username from poets", [], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows));
       });
     },
 
     isPoetInPoem: function(poetId, poemId, callback) {
-      db.query("select * from poets_poems where poem_id = $1 and poet_id = $2", [poemId, poetId],
+      db.query("select 1 from poets_poems where poem_id = $1 and poet_id = $2", [poemId, poetId],
         function(err, result) {
           if (err) { return callback(err); }
           callback(null, result.rows.length > 0);

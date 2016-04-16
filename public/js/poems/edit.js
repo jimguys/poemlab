@@ -2,6 +2,7 @@ $(function() {
   var socket = io.connect('/');
   var poemContainer = $('.newline-form');
   var poem = { id: poemContainer.data('poem-id') };
+  var poetPosition = poemContainer.data('poet-position');
   var linesContainer = $('.poem-lines');
   var lineTextInput = poemContainer.find('.line-text');
   var synth = window.speechSynthesis;
@@ -20,6 +21,7 @@ $(function() {
   poemContainer.submit(function() {
     var line = {
       poemId: poem.id,
+      poetPosition: poetPosition,
       text: lineTextInput.val()
     };
     $.post('/lines', line);

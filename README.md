@@ -15,7 +15,6 @@ Poemlab can be deployed into a dokku environment.
   ```
   sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
   sudo dokku plugin:install https://github.com/dokku/dokku-redis.git
-  sudo dokku plugin:install https://github.com/jessearmand/dokku-logging-supervisord.git
   ```
   Disconnect from the ssh session.
 

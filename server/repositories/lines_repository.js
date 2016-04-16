@@ -1,9 +1,10 @@
 var _ = require('underscore');
 
 module.exports = function(db) {
+
   function mapLines(rows) {
     return _.map(rows, function(r) {
-      return { id: r.id, poem: { id: r.poem_id }, poet: { id: r.poet_id, color: r.poet_id % 5 }, text: r.text };
+      return { id: r.id, poem: { id: r.poem_id }, poet: { id: r.poet_id, position: r.position }, text: r.text };
     });
   }
 
@@ -19,7 +20,9 @@ module.exports = function(db) {
     },
 
     read: function(lineId, callback) {
-      db.query("select * from lines where id = $1", [lineId], function(err, result) {
+      db.query("select l.id, l.poet_id, l.poem_id, l.text, pp.position from lines l " +
+        "join poets_poems pp on pp.poet_id = l.poet_id and pp.poem_id = l.poem_id " +
+        "where l.id = $1", [lineId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapLines(result.rows)[0]);
       });
@@ -32,7 +35,9 @@ module.exports = function(db) {
     },
 
     forPoem: function(poemId, callback) {
-      db.query("select * from lines where poem_id = $1 order by id", [poemId], function(err, result) {
+      db.query("select l.id, l.poet_id, l.poem_id, l.text, pp.position from lines l " +
+        "join poets_poems pp on pp.poet_id = l.poet_id and pp.poem_id = l.poem_id " +
+        "where l.poem_id = $1 order by id", [poemId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapLines(result.rows));
       });

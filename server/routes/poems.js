@@ -17,13 +17,14 @@ module.exports = function(db) {
   function readPoemLines(poem, poets, user, res) {
     linesRepo.forPoem(poem.id, function(err, lines) {
       respond(err, res, function() {
-        res.render('poems/edit', { poem: poem, poets: poets, user: user, lines: lines });
+        var position = _.find(poets, function(p) { return p.id === user.id }).position;
+        res.render('poems/edit', { poem: poem, poets: poets, user: user, poetPosition: position, lines: lines });
       });
     });
   }
 
-  function addPoetsToPoem(poem, poetIds, res) {
-    poemsRepo.addPoets(poem.id, poetIds, function(err) {
+  function addPoetsToPoem(poem, poets, res) {
+    poemsRepo.addPoets(poem.id, poets, function(err) {
       respond(err, res, function() {
         res.redirect('/poems/' + poem.id);
       });
@@ -58,9 +59,11 @@ module.exports = function(db) {
       var poem = { name: req.body.name };
       poemsRepo.create(poem, function(err, id) {
         respond(err, res, function() {
-          var poetIds = [].concat(req.body.poets);
+          var poets = req.body.poets.map(function(poetId, i) {
+            return { id: poetId, position: i };
+          });
           poem.id = id;
-          addPoetsToPoem(poem, poetIds, res);
+          addPoetsToPoem(poem, poets, res);
         });
       });
     }

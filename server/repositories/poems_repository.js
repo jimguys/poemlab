@@ -1,6 +1,8 @@
 var _ = require('underscore');
+var async = require('async');
 
 module.exports = function(db) {
+  
   function mapPoems(rows) {
     return _.map(rows, function(r) {
       return { id: r.id, name: r.name };
@@ -25,13 +27,11 @@ module.exports = function(db) {
       );
     },
 
-    addPoets: function(poemId, poetIds, callback) {
-      db.query("insert into poets_poems (poem_id, poet_id) select $1, id from poets p " +
-        "where p.id = any($2::int[])", [poemId, poetIds],
-        function(err, result) {
-          callback(err);
-        }
-      );
+    addPoets: function(poemId, poets, callback) {
+      async.eachSeries(poets, function(poet, cb) {
+        db.query("insert into poets_poems (poem_id, poet_id, position) values ($1, $2, $3)",
+          [poemId, poet.id, poet.position], cb);
+      }, callback);
     },
 
     removePoet: function(poemId, poetId, callback) {
@@ -43,7 +43,7 @@ module.exports = function(db) {
     },
 
     read: function(poemId, callback) {
-      db.query("select * from poems where id = $1", [poemId], function(err, result) {
+      db.query("select id, name from poems where id = $1", [poemId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoems(result.rows)[0]);
       });
@@ -56,14 +56,14 @@ module.exports = function(db) {
     },
 
     all: function(callback) {
-      db.query("select * from poems", [], function(err, result) {
+      db.query("select id, name from poems", [], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoems(result.rows));
       });
     },
 
     forPoet: function(poetId, callback) {
-      db.query("select p.* from poems p inner join poets_poems as pp " +
+      db.query("select p.id, p.name from poems p inner join poets_poems as pp " +
         "on p.id = pp.poem_id where pp.poet_id = $1", [poetId],
         function(err, result) {
           if(err) { return callback(err); }

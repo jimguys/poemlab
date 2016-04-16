@@ -5,7 +5,7 @@ module.exports = function(db, io) {
   return {
     create: function(req, res) {
       var line = {
-        poet: { id: req.user.id, color: req.user.id % 5 },
+        poet: { id: req.user.id, position: req.body.poetPosition },
         poem: { id: req.body.poemId },
         text: req.body.text
       };

@@ -1,4 +1,4 @@
 .line(data-line-id="#{line.id}").row
   .column
-    .box(class="poet-color-#{line.poet.color}")
+    .box(class="poet-color-#{line.poet.position % 5}")
     span= line.text

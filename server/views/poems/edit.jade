@@ -15,7 +15,7 @@ block content
           each line in lines
             include ../partials/line
         .row.column
-          form.newline-form(action="javascript:void(0)", data-poem-id="#{poem.id}", data-poet-id="#{user.id}")
+          form.newline-form(action="javascript:void(0)", data-poem-id="#{poem.id}", data-poet-position="#{poetPosition}" data-poet-id="#{user.id}")
             input.line-text(type="text", size=100)
             input.button(type="submit", value="Post")
   script(src="/socket.io/socket.io.js")
