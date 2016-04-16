@@ -30,7 +30,18 @@ $(function() {
   $('.speak').click(function(event) {
     event.preventDefault();
     var synth = window.speechSynthesis;
-    var utterThis = new SpeechSynthesisUtterance(linesContainer.text());
-    synth.speak(utterThis);
+    var lines = $('.line').map(function() { return $(this).text(); });
+    var play = function(i) {
+      if (i < lines.length) {
+        var speech = new SpeechSynthesisUtterance(lines[i]);
+        speech.onend = function() {
+          setTimeout(function() {
+            play(i + 1);
+          }, 500);
+        };
+        synth.speak(speech);
+      }
+    };
+    play(0);
   });
 });
