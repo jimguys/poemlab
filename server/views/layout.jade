@@ -6,14 +6,16 @@ html
     link(rel='stylesheet', href='/stylesheets/app.css')
     meta(name="viewport", content="width=device-width, initial-scale=1")
   body
-    .top-bar
-      .title-area
-        strong
-          a(href="/poems") Poemlab
-      .top-bar-section
-        .right
-          if user && user.id
-              strong #{user.username} | 
-              a(href="/logout") logout
+    .row
+      .column
+        .top-bar
+          .title-area
+              strong
+                a(href="/poems") Poemlab
+          .top-bar-section
+            .right
+              if user && user.id
+                  strong #{user.username} | 
+                  a(href="/logout") logout
     .row
       block content

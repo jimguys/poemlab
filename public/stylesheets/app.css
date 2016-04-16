@@ -13,6 +13,7 @@ li {
 .top-bar {
   color: white;
   margin-bottom: 1.5em;
+  box-shadow: 0 0 20px 1px #1f203d;
 }
 
 .top-bar a {
@@ -56,8 +57,8 @@ li {
   width: 1em;
   height: .8em;
   display: inline-block;
-  margin-right: .2em;
-  margin-bottom: -0.1em;
+  margin-right: .4em;
+  margin-bottom: -0.05em;
   text-align: middle;
   border-radius: .1em;
 }
