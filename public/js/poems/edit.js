@@ -6,7 +6,7 @@ $(function() {
   var linesContainer = $('.poem-lines');
   var lineTextInput = poemContainer.find('.line-text');
   var synth = window.speechSynthesis;
-  var speech = new SpeechSynthesisUtterance();
+  var speech = synth && new SpeechSynthesisUtterance();
 
   socket.on('connect', function() {
     socket.emit('joinPoem', poem.id);
@@ -28,8 +28,11 @@ $(function() {
     lineTextInput.val('');
   });
 
+  if (synth) {
+    $('.speak').show();
+  }
+
   $('.speak').click(function(event) {
-    event.preventDefault();
     var lines = $('.line').map(function() {
       return {
         id: $(this).data('line-id'),

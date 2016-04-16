@@ -90,6 +90,10 @@ li {
   background-color: #dedeed;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .poet-color-0 { background-color: #33b5e5; }
 .poet-color-1 { background-color: #ffbb33; }
 .poet-color-2 { background-color: #99cc00; }
