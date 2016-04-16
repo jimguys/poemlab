@@ -19,9 +19,7 @@
     "passport-local": "~0.1.6",
     "jade-browser": "~0.0.14",
     "passport.socketio": "~1.2.1",
-    "connect-redis": "~1.4.5"
-  },
-  "devDependencies": {
-    "db-migrate": "~0.6.2"
+    "connect-redis": "~1.4.5",
+    "db-migrate": "~0.9.23"
   }
 }
