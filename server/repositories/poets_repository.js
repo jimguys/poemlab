@@ -22,21 +22,21 @@ module.exports = function(db) {
     },
 
     read: function(userId, callback) {
-      db.query("select id, username from poets where id = $1", [userId], function(err, result) {
+      db.query("select id, username, password from poets where id = $1", [userId], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
     },
 
     readByUsername: function(username, callback) {
-      db.query("select id, username from poets where username = $1", [username], function(err, result) {
+      db.query("select id, username, password from poets where username = $1", [username], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });
     },
 
     readByEmail: function(email, callback) {
-      db.query("select id, username from poets where email = $1", [email], function(err, result) {
+      db.query("select id, username, password from poets where email = $1", [email], function(err, result) {
         if (err) { return callback(err); }
         callback(null, mapPoets(result.rows)[0]);
       });

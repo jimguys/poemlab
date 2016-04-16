@@ -20,7 +20,7 @@ module.exports = function(db) {
 
       poetValidator.validate(user, function(valid, errors) {
         if(errors.length > 0) {
-          return res.render('register', { title: 'Poem Lab', user: userData, errors: errors });
+          return res.render('register', { title: 'Poem Lab', user: user, errors: errors });
         }
 
         poetsRepo.create(user, function(err, id) {
