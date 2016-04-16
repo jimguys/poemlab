@@ -3,7 +3,10 @@ extends ../layout
 block content
   .column
     .row.column
-      h1= poem.name
+      h1
+        span= poem.name
+        .badge.speak
+          i.fi-megaphone
     .row
       .column.small-12.medium-2
         include ../partials/poets

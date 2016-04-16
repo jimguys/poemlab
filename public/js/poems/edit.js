@@ -26,4 +26,11 @@ $(function() {
     $.post('/lines', lineData);
     lineTextInput.val('');
   });
+
+  $('.speak').click(function(event) {
+    event.preventDefault();
+    var synth = window.speechSynthesis;
+    var utterThis = new SpeechSynthesisUtterance(linesContainer.text());
+    synth.speak(utterThis);
+  });
 });
