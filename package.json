@@ -9,7 +9,8 @@
     "start": "node app.js",
     "dev": "supervisor -w . app.js",
     "migrate": "node_modules/.bin/pg-migrate up",
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/mocha",
+    "reset-test-data": "node db/pg-query.js db/reset-test-data.sql"
   },
   "dependencies": {
     "async": "^1.5.2",

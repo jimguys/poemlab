@@ -3,7 +3,7 @@
     "scripts": {
         "dokku": {
             "predeploy": "npm run migrate",
-            "postdeploy": "npm test"
+            "postdeploy": "npm test ; npm run reset-test-data"
         }
     }
 }
