@@ -1,25 +1,12 @@
-const Browser = require('zombie');
-const portfinder = require('portfinder');
 const uuid = require('node-uuid');
-
-var browserReady = new Promise(function(fulfill, reject) {
-  portfinder.getPort(function (err, port) {
-    process.env.PORT = port;
-    require('../app');
-  });
-
-  process.on('ready', function(port) {
-    Browser.localhost('localhost', port);
-    fulfill();
-  });
-});
+var browserReady = require('./shared/browser')();
 
 describe('User can create an account and login', function() {
-  const browser = new Browser();
   var testUser = 'test-' + uuid.v4();
 
   before(function() {
-    return browserReady.then(function() {
+    return browserReady.then(function(b) {
+      browser = b;
       return browser.visit('/');
     });
   });

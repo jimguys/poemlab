@@ -29,7 +29,7 @@ $(function() {
   });
 
   if (synth) {
-    $('.speak').show();
+    $('.speak').removeClass('hidden');
   }
 
   $('.speak').click(function(event) {
