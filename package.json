@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "supervisor -w . app.js",
-    "migrate": "node_modules/.bin/pg-migrate up"
+    "migrate": "node_modules/.bin/pg-migrate up",
+    "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -21,7 +22,10 @@
     "passport-local": "~0.1.6",
     "passport.socketio": "~1.2.1",
     "pg": "~2.6.0",
+    "portfinder": "^1.0.3",
     "socket.io": "~0.9.16",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "mocha": "^2.4.5",
+    "zombie": "^4.2.1"
   }
 }

@@ -2,7 +2,8 @@
     "name": "Poemlab",
     "scripts": {
         "dokku": {
-            "predeploy": "npm run migrate"
+            "predeploy": "npm run migrate",
+            "postdeploy": "npm test"
         }
     }
 }

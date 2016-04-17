@@ -1,4 +1,4 @@
-Poem Lab
+Poemlab
 ========
 Collaborative Poetry Engine
 

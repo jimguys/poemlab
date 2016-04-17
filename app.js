@@ -49,7 +49,9 @@ process.on('error', function(err, category) {
 
 // start the http server
 server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  var port = app.get('port');
+  console.log('Express server listening on port ' + port);
+  process.emit('ready', port);
 });
 
 io.set('authorization', passportSocketIo.authorize({
