@@ -10,8 +10,8 @@ block content
           .error= error
       p
         input(type="text", name="username", placeholder="Username")
-        input#password(type="password", placeholder="Password")
-        input#hashedPassword(type="hidden", name="hashedPassword")
+        input(type="password", name="password", placeholder="Password")
+        input(type="hidden", name="hashedPassword")
         input(type="submit" class="button" value="Login")
     a(href="/register") Sign up
   script(src="/js/vendor/jquery-1.10.2.min.js")

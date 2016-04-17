@@ -17,7 +17,9 @@
     "express": "~3.4.0",
     "jade": "*",
     "jade-browser": "~0.0.14",
+    "mocha": "^2.4.5",
     "node-pg-migrate": "0.0.9",
+    "node-uuid": "^1.4.7",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "passport.socketio": "~1.2.1",
@@ -25,7 +27,6 @@
     "portfinder": "^1.0.3",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.2",
-    "mocha": "^2.4.5",
     "zombie": "^4.2.1"
   }
 }

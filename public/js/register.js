@@ -2,8 +2,8 @@ $(function() {
 
   $("#register").submit(function() {
 
-    var password = $("#password").val();
-    var confirmation = $("#confirm").val();
+    var password = $("input[name='password']").val();
+    var confirmation = $("input[name='confirm']").val();
 
     clearErrors();
 
@@ -18,7 +18,7 @@ $(function() {
     }
 
     var hashedPassword = CryptoJS.SHA256(password).toString();
-    $("#hashedPassword").val(hashedPassword);
+    $("input[name='hashedPassword']").val(hashedPassword);
     return true;
 
   });
