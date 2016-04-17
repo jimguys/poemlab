@@ -18,7 +18,16 @@ $(function() {
     lineTextInput.focus();
   });
 
-  poemContainer.submit(function() {
+  $('.post-line').on('click', postLine);
+
+  $('.line-text').on('keypress', function(e) {
+    if (e.keyCode == 13) {
+      postLine();
+      return false;
+    }
+  });
+
+  function postLine() {
     var line = {
       poemId: poem.id,
       poetPosition: poetPosition,
@@ -26,7 +35,7 @@ $(function() {
     };
     $.post('/lines', line);
     lineTextInput.val('');
-  });
+  }
 
   if (synth) {
     $('.speak').removeClass('hidden');

@@ -5,8 +5,9 @@ var browserReady = require('./shared/browser')();
 
 describe('User can setup an account and write a poem', function() {
   var browser;
-  var testUser1 = 'test-' + uuid.v4();
-  var testUser2 = 'test-' + uuid.v4();
+  var poemName = uuid.v4();
+  var testUser1 = 'test-1-' + uuid.v4();
+  var testUser2 = 'test-2-' + uuid.v4();
 
   describe('register a user and logout', function() {
     it('user registers', function() {
@@ -51,17 +52,48 @@ describe('User can setup an account and write a poem', function() {
     });
 
     it('second user is already in poet list', function() {
-      browser.assert.text('.poet:first-child', testUser2);
+      browser.assert.text('.poet:nth-of-type(1)', testUser2);
     });
 
     it('fill in form. add first user to poem', function() {
       browser
-        .fill('name', uuid.v4())
+        .fill('name', poemName)
         .fill('.poet-search', testUser1);
+      return browser.click('.poet-search');
     });
 
-    // it('first user is now in poet list', function() {
-    //   browser.assert.text('.poet:last-child', testUser1);
-    // });
+    it('select a poet to add it to the poem', function() {
+      return browser.click('.tt-suggestion');
+    });
+
+    it('first user is now in poet list', function() {
+      browser.assert.text('.poet:nth-of-type(2)', testUser1);
+    });
+
+    it('start the poem', function() {
+      return browser.pressButton('Start Poem');
+    });
+  });
+
+  describe('users write a poem', function() {
+    var line = uuid.v4();
+
+    it('should see the poem name', function() {
+      browser.assert.text('h1', poemName);
+    });
+
+    it('should see the poets', function() {
+      browser.assert.text('.poet:nth-of-type(1)', testUser2);
+      browser.assert.text('.poet:nth-of-type(2)', testUser1);
+    });
+
+    it('write a new line', function() {
+      browser.fill('.line-text', line);
+      return browser.click('.post-line');
+    });
+
+    it('should show the line in the poem', function() {
+      browser.assert.text('.line:nth-of-type(1)', line);
+    });
   });
 });
