@@ -14,7 +14,7 @@ html
       .top-bar-section
         .right
           if user && user.id
-              strong.username #{user.username}
+              strong.loggedin-username #{user.username}
               strong | 
               a(href="/logout") logout
     .row

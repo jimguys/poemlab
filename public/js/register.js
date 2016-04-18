@@ -5,26 +5,28 @@ $(function() {
     var password = $("input[name='password']").val();
     var confirmation = $("input[name='confirm']").val();
 
-    clearErrors();
-
     if (!passwordValid(password)) {
-      addValidationError("Password must be at least 6 characters long");
+      showErrors(["Password must be at least 6 characters long"]);
       return false;
     }
 
     if (!passwordConfirmed(password, confirmation)) {
-      addValidationError("Password and confirmation did not match");
+      showErrors(["Password and confirmation did not match"]);
       return false;
     }
 
     var hashedPassword = CryptoJS.SHA256(password).toString();
     $("input[name='hashedPassword']").val(hashedPassword);
     return true;
-
   });
 
-  function clearErrors() {
-    $("#errors").children().remove();
+  function showErrors(errors) {
+    setTimeout(function() {
+      var errorHtml = $(jade.render('server/views/partials/errors.jade', {
+        errors: errors
+      }));
+      $('#errors').html(errorHtml);
+    }, 0);
   }
 
   function passwordValid(password) {
@@ -34,9 +36,4 @@ $(function() {
   function passwordConfirmed(password, confirmation) {
     return password === confirmation;
   }
-
-  function addValidationError(msg) {
-    $('<div/>', { class: 'error', text: msg }).appendTo($("#errors"));
-  }
-
 });

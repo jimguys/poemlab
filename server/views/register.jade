@@ -5,23 +5,22 @@ block content
     h1 #{title} Registration
     form#register(method="post", action="/register")
       #errors
-      if errors
-        each error in errors
-          .error= error
+        include partials/errors
       p
         div
-          input(type="text", name="username", placeholder="User name", value=user.username)
+          input(type="text", name="username", placeholder="User name", value=user.username, required)
         div
-          input(type="text", name="email", placeholder="Email", value=user.email)
+          input(type="text", name="email", placeholder="Email", value=user.email, required)
       p
         div
-          input(type="password", name="password", placeholder="Password")
+          input(type="password", name="password", placeholder="Password", required)
         div
-          input(type="password", name="confirm", placeholder="Confirm Password")
+          input(type="password", name="confirm", placeholder="Confirm Password", required)
         input(type="hidden", name="hashedPassword")
 
       input.button(type="submit", value="Sign Up")
 
   script(src="/js/vendor/jquery-1.10.2.min.js")
   script(src="/js/vendor/sha256.js")
+  script(src="/js/partials.js")
   script(src="/js/register.js")
