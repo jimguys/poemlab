@@ -15,8 +15,6 @@ $(function() {
       return false;
     }
 
-    var hashedPassword = CryptoJS.SHA256(password).toString();
-    $("input[name='hashedPassword']").val(hashedPassword);
     return true;
   });
 

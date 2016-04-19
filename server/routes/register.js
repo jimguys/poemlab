@@ -15,7 +15,7 @@ module.exports = function(db) {
       var user = {
         username: req.body.username,
         email: req.body.email,
-        password: req.body.hashedPassword
+        password: req.body.password
       };
 
       poetValidator.validate(user, function(valid, errors) {
@@ -30,7 +30,6 @@ module.exports = function(db) {
             });
           });
         });
-
       });
 
     }

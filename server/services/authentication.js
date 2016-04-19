@@ -1,4 +1,6 @@
 var _ = require('underscore');
+var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 
 module.exports = function authenticationService(poetsRepository) {
 
@@ -7,11 +9,12 @@ module.exports = function authenticationService(poetsRepository) {
     verifyCredentials: function(username, password, callback) {
       poetsRepository.readByUsername(username, function(err, user) {
         if (err) { return callback(err, null); }
-        if (user !== undefined && user.password === password) {
-          callback(null, user);
-        } else {
-          callback(null, null, { message: 'Invalid username or password' });
-        }
+        if (user === undefined)
+          return callback(null, false);
+
+        checkPassword(password, user.password, function(err, valid) {
+          callback(err, valid ? user : null, valid ? null : { message: 'Invalid username or password' });
+        });
       });
     },
 
@@ -28,4 +31,13 @@ module.exports = function authenticationService(poetsRepository) {
       };
     }
   };
+
+  function checkPassword(password, hash, callback) {
+    if (hash.startsWith('$2')) {
+      bcrypt.compare(password, hash, callback);
+    } else {
+      // old password hashing
+      callback(null, hash === crypto.createHash('sha256').update('password').digest('hex'));
+    }
+  }
 };

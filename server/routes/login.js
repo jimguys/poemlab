@@ -7,7 +7,7 @@ module.exports = function(db) {
 
   passport.use(new LocalStrategy({
       usernameField: 'username',
-      passwordField: 'hashedPassword'
+      passwordField: 'password'
     },
     function(username, password, done) {
       authenticationService.verifyCredentials(username, password, function(err, user, info) {

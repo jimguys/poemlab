@@ -1,4 +1,6 @@
 var _ = require('underscore');
+var bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 module.exports = function poetsRepository(db) {
 
@@ -10,15 +12,18 @@ module.exports = function poetsRepository(db) {
 
   return {
     create: function(poet, callback) {
-      var params = _.values(_.pick(poet, ["username", "email", "password"]));
-      db.query("insert into poets (username, email, password) values ($1, $2, $3) " +
-          "returning id, username, email", params,
-        function(err, result) {
-          if (err) { return callback(err); }
-          var id = result.rows[0].id;
-          callback(null, id);
-        }
-      );
+      bcrypt.hash(poet.password, SALT_ROUNDS, function(err, passwordHash) {
+        if (err) { return callback(err); }
+
+        db.query("insert into poets (username, email, password) values ($1, $2, $3) returning id",
+            [poet.username, poet.email, passwordHash],
+          function(err, result) {
+            if (err) { return callback(err); }
+            var id = result.rows[0].id;
+            callback(null, id);
+          }
+        );
+      });
     },
 
     read: function(userId, callback) {

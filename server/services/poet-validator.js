@@ -19,11 +19,6 @@ module.exports = function poetValidator(poetsRepository) {
     return email && basicEmailRegex.test(email);
   }
 
-  function passwordIsHashed(password) {
-    var sha256 = /[a-f0-9]{64}/;
-    return password && sha256.test(password);
-  }
-
   return {
 
     validate: function(poet, callback) {
@@ -37,10 +32,6 @@ module.exports = function poetValidator(poetsRepository) {
 
       if (!emailLooksValid(poet.email)) {
         errors.push("The email address supplied doesn't look valid");
-      }
-
-      if (!passwordIsHashed(poet.password)) {
-        errors.push("The password must be hashed");
       }
 
       if (errors.length > 0) {
