@@ -160,3 +160,50 @@ describe('User sees registration validation errors', function() {
     });
   });
 });
+
+describe('User sees login failure', function() {
+  var testUser = 'test-' + uuid.v4();
+
+  before(function() {
+    browser
+      .fill('username', testUser)
+      .fill('email', testUser + '@poemlab.com')
+      .fill('password', testUser + 'password')
+      .fill('confirm', testUser + 'password');
+    return browser.pressButton('Sign Up').then(function() {
+      return browser.clickLink('logout');
+    });
+  });
+
+  describe('for incorrect username', function() {
+    before(function() {
+      return browser.visit('/').then(function() {
+        browser
+          .fill('username', uuid.v4())
+          .fill('password', uuid.v4());
+        return browser.pressButton('Login');
+      });
+    });
+
+    it('shows an error message', function() {
+      browser.assert.text('.error', 'Invalid username or password');
+    });
+  });
+
+
+  describe('for incorrect password', function() {
+    before(function() {
+      return browser.visit('/').then(function() {
+        browser
+          .fill('username', testUser)
+          .fill('password', 'incorrect_password');
+        return browser.pressButton('Login');
+      });
+    });
+
+    it('shows an error message', function() {
+      browser.assert.text('.error', 'Invalid username or password');
+    });
+  });
+
+});

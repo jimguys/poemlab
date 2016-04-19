@@ -9,11 +9,13 @@ module.exports = function authenticationService(poetsRepository) {
     verifyCredentials: function(username, password, callback) {
       poetsRepository.readByUsername(username, function(err, user) {
         if (err) { return callback(err, null); }
+        const message = 'Invalid username or password';
         if (user === undefined)
-          return callback(null, false);
+          return callback(null, false, { message: message });
 
         checkPassword(password, user.password, function(err, valid) {
-          callback(err, valid ? user : null, valid ? null : { message: 'Invalid username or password' });
+          if (err) { return callback(err, null)};
+          callback(err, valid ? user : null, valid ? null : { message: message });
         });
       });
     },
@@ -34,7 +36,9 @@ module.exports = function authenticationService(poetsRepository) {
 
   function checkPassword(password, hash, callback) {
     if (hash.startsWith('$2')) {
-      bcrypt.compare(password, hash, callback);
+      bcrypt.compare(password, hash, function(err, valid) {
+        callback(null, valid);
+      });
     } else {
       // old password hashing
       callback(null, hash === crypto.createHash('sha256').update('password').digest('hex'));
