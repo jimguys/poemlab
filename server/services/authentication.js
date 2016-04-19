@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-module.exports = function(poetsRepository) {
+module.exports = function authenticationService(poetsRepository) {
 
   return {
 

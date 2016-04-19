@@ -16,7 +16,7 @@ block content
             include ../partials/line
         .row.column
           .newline-form(data-poem-id="#{poem.id}", data-poet-position="#{poetPosition}" data-poet-id="#{user.id}")
-            input.line-text(type="text", size=100)
+            input.line-text(type="text", size=100, maxlength="200")
             input.button.post-line(value="Post")
   script(src="/socket.io/socket.io.js")
   script(src="/js/vendor/jquery-1.10.2.min.js")

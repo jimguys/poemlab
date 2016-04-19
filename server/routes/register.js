@@ -2,8 +2,8 @@ var respond = require('./common').respond;
 var passport = require('passport');
 
 module.exports = function(db) {
-  var poetsRepo = require("../repositories/poets_repository")(db);
-  var poetValidator = require('../services/poet_validator')(poetsRepo);
+  var poetsRepo = require("../repositories/poets")(db);
+  var poetValidator = require('../services/poet-validator')(poetsRepo);
 
  return {
 

@@ -2,9 +2,9 @@ var respond = require('./common').respond;
 var _ = require('underscore');
 
 module.exports = function(db) {
-  var poetsRepo = require("../repositories/poets_repository")(db);
-  var poemsRepo = require("../repositories/poems_repository")(db);
-  var linesRepo = require("../repositories/lines_repository")(db);
+  var poetsRepo = require("../repositories/poets")(db);
+  var poemsRepo = require("../repositories/poems")(db);
+  var linesRepo = require("../repositories/lines")(db);
 
   function readPoemDetails(poem, user, res) {
     poetsRepo.forPoem(poem.id, function(err, poets) {

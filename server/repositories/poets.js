@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-module.exports = function(db) {
+module.exports = function poetsRepository(db) {
 
   function mapPoets(rows) {
     return _.map(rows, function(r) {

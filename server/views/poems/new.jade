@@ -5,7 +5,7 @@ block content
     h1 New Poem
     p Create a new poem
     form(action="/poems", method="post")
-      input(type="text", name="name", placeholder="Poem Name", size=50)
+      input(type="text", name="name", placeholder="Poem Name", size=50, maxlength="100")
       div Poets in this poem:
       .row
         .column.medium-4

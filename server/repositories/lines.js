@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-module.exports = function(db) {
+module.exports = function linesRepository(db) {
 
   function mapLines(rows) {
     return _.map(rows, function(r) {

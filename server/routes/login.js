@@ -2,8 +2,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(db) {
-  var poetsRepo = require("../repositories/poets_repository")(db);
-  var authenticationService = require('../services/authentication_service')(poetsRepo);
+  var poetsRepo = require("../repositories/poets")(db);
+  var authenticationService = require('../services/authentication')(poetsRepo);
 
   passport.use(new LocalStrategy({
       usernameField: 'username',

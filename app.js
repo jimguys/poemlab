@@ -35,7 +35,7 @@ require('./server/routes')(app, db, io);
 
 // socket.io functionality
 require('./server/services/socket-events')(io,
-  require('./server/repositories/poets_repository')(db));
+  require('./server/repositories/poets')(db));
 
 // error handler
 app.use(function(err, req, res, next) {

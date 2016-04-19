@@ -1,4 +1,4 @@
-module.exports = function(poetsRepository) {
+module.exports = function poetValidator(poetsRepository) {
 
   function isDuplicateUsername(username, callback) {
     poetsRepository.readByUsername(username, function(err, user) {

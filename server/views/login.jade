@@ -7,7 +7,7 @@ block content
       #errors
         include partials/errors
       p
-        input(type="text", name="username", placeholder="Username", required)
+        input(type="text", name="username", placeholder="Username", required, maxlength="50")
         input(type="password", name="password", placeholder="Password")
         input(type="hidden", name="hashedPassword")
         input(type="submit" class="button" value="Login")

@@ -1,8 +1,8 @@
 var _ = require('underscore');
 var async = require('async');
 
-module.exports = function(db) {
-  
+module.exports = function poemsRepository(db) {
+
   function mapPoems(rows) {
     return _.map(rows, function(r) {
       return { id: r.id, name: r.name };
