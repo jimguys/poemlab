@@ -51,22 +51,50 @@ describe('User can setup an account and write a poem', function() {
       return browser.clickLink('.new-poem');
     });
 
-    it('second user is already in poet list', function() {
+    it('current user is already in poet list', function() {
       browser.assert.text('.poet:nth-of-type(1)', testUser2);
     });
 
-    it('fill in form. add first user to poem', function() {
+    it('cannot remove the current user from the poet list', function() {
+      return browser.click('.poet:nth-of-type(1)');
+    });
+
+    it('the current user is still in the poet list', function() {
+      browser.assert.text('.poet:nth-of-type(1)', testUser2);
+    });
+
+    it('add another user to the poet list', function() {
       browser
         .fill('name', poemName)
         .fill('.poet-search', testUser1);
-      return browser.click('.poet-search');
+      return browser.click('.poet-search').then(function() {
+        return browser.click('.tt-suggestion');
+      });
     });
 
-    it('select a poet to add it to the poem', function() {
-      return browser.click('.tt-suggestion');
+    it('the other user is now in poet list', function() {
+      browser.assert.text('.poet:nth-of-type(2)', testUser1);
     });
 
-    it('first user is now in poet list', function() {
+    it('remove the other user from the poet list', function() {
+      return browser.click('.poet:nth-of-type(2)');
+    });
+
+    it('the other user is no longer in the poet list', function() {
+      browser.assert.elements('.poet', 1);
+      browser.assert.text('.poet:nth-of-type(1)', testUser2);
+    });
+
+    it('add the other user back to the list', function() {
+      browser
+        .fill('name', poemName)
+        .fill('.poet-search', testUser1);
+      return browser.click('.poet-search').then(function() {
+        return browser.click('.tt-suggestion');
+      });
+    });
+
+    it('the other user is in the poet list again', function() {
       browser.assert.text('.poet:nth-of-type(2)', testUser1);
     });
 

@@ -94,6 +94,13 @@ li {
   visibility: hidden;
 }
 
+.remove-poet {
+  color: #dedeed;
+  vertical-align: middle;
+  float: right;
+  margin-right: .2em;
+}
+
 .poet-color-0 { background-color: #33b5e5; }
 .poet-color-1 { background-color: #ffbb33; }
 .poet-color-2 { background-color: #99cc00; }
