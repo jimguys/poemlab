@@ -1,5 +1,3 @@
-const Browser = require('zombie');
-const portfinder = require('portfinder');
 const uuid = require('node-uuid');
 var browserReady = require('./shared/browser')();
 var browser, pages;
