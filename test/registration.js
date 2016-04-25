@@ -1,5 +1,6 @@
 const uuid = require('node-uuid');
 var browserReady = require('./shared/browser')();
+var browser, pages;
 
 describe('User can create an account and login', function() {
   var testUser = 'test-' + uuid.v4();
@@ -7,59 +8,56 @@ describe('User can create an account and login', function() {
   before(function() {
     return browserReady.then(function(b) {
       browser = b;
-      return browser.visit('/');
+      pages = require('./pages')(browser);
+      return pages.login.visit();
     });
   });
 
   describe('visits the registration page', function() {
     before(function() {
-      return browser.clickLink('Sign up');
+      return pages.login.signup();
     });
 
     it('should see the registration page', function() {
-      browser.assert.text('h1', 'Poemlab Registration');
+      pages.register.assertOnPage();
     });
   });
 
   describe('submits registration form', function() {
     before(function() {
-      browser
-        .fill('username', testUser)
-        .fill('email', testUser + '@poemlab.com')
-        .fill('password', testUser + 'password')
-        .fill('confirm', testUser + 'password');
-      return browser.pressButton('Sign Up');
+      return pages.register.signup({
+        username: testUser,
+        email: testUser + '@poemlab.com',
+        password: testUser + 'password'
+      });
     });
 
     it('should see the logged in username', function() {
-      browser.assert.text('.loggedin-username', testUser);
+      pages.assertUsername(testUser);
     });
   });
 
   describe('logs out', function() {
     before(function() {
-      return browser.clickLink('logout');
+      return pages.logout();
     });
 
     it('should see the login page', function() {
-      browser.assert.text('h4', 'Welcome to Poemlab');
+      return pages.login.assertOnPage();
     });
   });
 
   describe('logs back in', function() {
     before(function() {
-      browser
-        .fill('username', testUser)
-        .fill('password', testUser + 'password');
-      return browser.pressButton('Login');
+      return pages.login.submit(testUser, testUser + 'password');
     });
 
     it('should see the logged in username', function() {
-      browser.assert.text('.loggedin-username', testUser);
+      pages.assertUsername(testUser);
     });
 
     it('should see the poems page', function() {
-      browser.assert.text('h1', 'Poems');
+      pages.poems.index.assertOnPage();
     });
   });
 
@@ -69,93 +67,90 @@ describe('User sees registration validation errors', function() {
   var testUser = 'test-' + uuid.v4();
 
   before(function() {
-    return browser.clickLink('logout').then(function() {
-      return browser.visit('/register');
+    return pages.logout().then(function() {
+      return pages.register.visit();
     });
   });
 
   describe('submit without required fields', function() {
     before(function() {
-      browser.fill('username', '');
-      return browser.pressButton('Sign Up')
+      return pages.register.signup({
+        username: ''
+      });
     });
 
     it('should still be on the registration page', function() {
-      browser.assert.text('h1', 'Poemlab Registration');
+      pages.register.assertOnPage();
     });
   });
 
   describe('submit with invalid email address', function() {
     before(function() {
-      browser
-        .fill('username', testUser)
-        .fill('email', 'not_a_valid_email_address')
-        .fill('password', testUser + 'password')
-        .fill('confirm', testUser + 'password');
-      return browser.pressButton('Sign Up');
+      return pages.register.signup({
+        username: testUser,
+        email: 'not_a_valid_email_address',
+        password: testUser + 'password'
+      });
     });
 
     it('should show an error message', function() {
-      browser.assert.text('.error', 'The email address supplied doesn\'t look valid');
+      pages.register.assertError('The email address supplied doesn\'t look valid')
     });
   });
 
   describe('submit with mismatched password and confirmation', function() {
     before(function() {
-      browser
-        .fill('username', testUser)
-        .fill('email', testUser + '@poemlab.com')
-        .fill('password', testUser + 'password')
-        .fill('confirm', 'does_not_match');
-      return browser.pressButton('Sign Up');
+      return pages.register.signup({
+        username: testUser,
+        email: testUser + '@poemlab.com',
+        password: testUser + 'password',
+        confirm: 'does_not_match'
+      });
     });
 
     it('should show an error message', function() {
-      browser.assert.text('.error', 'Password and confirmation did not match');
+      pages.register.assertError('Password and confirmation did not match');
     });
   });
 
   describe('submit duplicate account', function() {
     before(function() {
-      browser
-        .fill('username', testUser)
-        .fill('email', testUser + '@poemlab.com')
-        .fill('password', testUser + 'password')
-        .fill('confirm', testUser + 'password');
-      return browser.pressButton('Sign Up').then(function() {
-        return browser.clickLink('logout');
+      return pages.register.signup({
+        username: testUser,
+        email: testUser + '@poemlab.com',
+        password: testUser + 'password'
       }).then(function() {
-        return browser.visit('/register');
-      });
+        return pages.logout();
+      }).then(function() {
+        return pages.register.visit();
+      })
     });
 
     describe('with username that is already taken', function() {
       before(function() {
-        browser
-          .fill('username', testUser)
-          .fill('email', uuid.v4() + '@poemlab.com')
-          .fill('password', testUser + 'password')
-          .fill('confirm', testUser + 'password');
-        return browser.pressButton('Sign Up');
+        return pages.register.signup({
+          username: testUser,
+          email: uuid.v4() + '@poemlab.com',
+          password: testUser + 'password'
+        });
       });
 
       it('shows an error message', function() {
-        browser.assert.text('.error', 'That username has already been taken');
+        pages.register.assertError('That username has already been taken');
       });
     });
 
     describe('with email that is already taken', function() {
       before(function() {
-        browser
-          .fill('username', uuid.v4())
-          .fill('email', testUser + '@poemlab.com')
-          .fill('password', testUser + 'password')
-          .fill('confirm', testUser + 'password');
-        return browser.pressButton('Sign Up');
+        return pages.register.signup({
+          username: uuid.v4(),
+          email: testUser + '@poemlab.com',
+          password: testUser + 'password'
+        });
       });
 
       it('shows an error message', function() {
-        browser.assert.text('.error', 'That email has already been taken');
+        pages.register.assertError('That email has already been taken');
       });
     });
   });
@@ -165,44 +160,33 @@ describe('User sees login failure', function() {
   var testUser = 'test-' + uuid.v4();
 
   before(function() {
-    browser
-      .fill('username', testUser)
-      .fill('email', testUser + '@poemlab.com')
-      .fill('password', testUser + 'password')
-      .fill('confirm', testUser + 'password');
-    return browser.pressButton('Sign Up').then(function() {
+    return pages.register.signup({
+      username: testUser,
+      email: testUser + '@poemlab.com',
+      password: testUser + 'password'
+    }).then(function() {
       return browser.clickLink('logout');
     });
   });
 
   describe('for incorrect username', function() {
     before(function() {
-      return browser.visit('/').then(function() {
-        browser
-          .fill('username', uuid.v4())
-          .fill('password', uuid.v4());
-        return browser.pressButton('Login');
-      });
+      return pages.login.submit(uuid.v4(), uuid.v4());
     });
 
     it('shows an error message', function() {
-      browser.assert.text('.error', 'Invalid username or password');
+      pages.login.assertError('Invalid username or password');
     });
   });
 
 
   describe('for incorrect password', function() {
     before(function() {
-      return browser.visit('/').then(function() {
-        browser
-          .fill('username', testUser)
-          .fill('password', 'incorrect_password');
-        return browser.pressButton('Login');
-      });
+      return pages.login.submit(testUser, 'incorrect_password');
     });
 
     it('shows an error message', function() {
-      browser.assert.text('.error', 'Invalid username or password');
+      pages.login.assertError('Invalid username or password');
     });
   });
 
