@@ -70,8 +70,7 @@ describe('User can setup an account and write a poem', function() {
     });
 
     it('remove the other user from the poet list', function() {
-      pages.poems.new.removePoet(2);
-      return browser.click('.poet:nth-of-type(2)');
+      return pages.poems.new.removePoet(2);
     });
 
     it('the other user is no longer in the poet list', function() {
