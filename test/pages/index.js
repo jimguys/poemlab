@@ -12,8 +12,8 @@ module.exports = function(browser) {
       return browser.clickLink('logout');
     },
 
-    assertUsername: function(username) {
-      browser.assert.text('.loggedin-username', username);
+    username: function() {
+      return browser.query('.loggedin-username').textContent.trim();
     }
   }
 }

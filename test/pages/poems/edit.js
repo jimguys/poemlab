@@ -16,16 +16,17 @@ module.exports = function poemEditPage(browser) {
       return browser.click('.editable-submit');
     },
 
-    assertName: function(expected) {
-      browser.assert.text('h1', expected);
+    name: function() {
+      return browser.query('h1 span').textContent;
     },
 
-    assertPoet: function(i, name) {
-      browser.assert.text('.poet:nth-of-type(' + i + ')', name);
+    poet: function(i) {
+      var p = browser.query('.poet:nth-of-type(' + i + ')');
+      return p ? p.textContent : undefined;
     },
 
-    assertLine: function(i, line) {
-      browser.assert.text('.line:nth-of-type(' + i + ')', line);
+    line: function(i) {
+      return browser.query('.line:nth-of-type(' + i + ')').textContent;
     },
 
     assertNotEditing: function() {

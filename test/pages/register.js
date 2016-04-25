@@ -13,13 +13,12 @@ module.exports = function registerPage(browser) {
       return browser.pressButton('Sign Up');
     },
 
-    assertOnPage: function() {
-      browser.assert.text('h1', 'Poemlab Registration');
+    error: function() {
+      return browser.query('.error').textContent;
     },
 
-    assertError: function(error) {
-      browser.assert.text('.error', error);
+    assertOnPage: function() {
+      browser.assert.text('h1', 'Poemlab Registration');
     }
-
   };
 }

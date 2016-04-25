@@ -1,4 +1,5 @@
 const uuid = require('node-uuid');
+var expect = require('chai').expect;
 var browserReady = require('./shared/browser')();
 var browser, pages;
 
@@ -33,7 +34,7 @@ describe('User can create an account and login', function() {
     });
 
     it('should see the logged in username', function() {
-      pages.assertUsername(testUser);
+      expect(pages.username()).to.equal(testUser);
     });
   });
 
@@ -53,7 +54,7 @@ describe('User can create an account and login', function() {
     });
 
     it('should see the logged in username', function() {
-      pages.assertUsername(testUser);
+      expect(pages.username()).to.equal(testUser);
     });
 
     it('should see the poems page', function() {
@@ -94,7 +95,7 @@ describe('User sees registration validation errors', function() {
     });
 
     it('should show an error message', function() {
-      pages.register.assertError('The email address supplied doesn\'t look valid')
+      expect(pages.register.error()).to.equal('The email address supplied doesn\'t look valid')
     });
   });
 
@@ -109,7 +110,7 @@ describe('User sees registration validation errors', function() {
     });
 
     it('should show an error message', function() {
-      pages.register.assertError('Password and confirmation did not match');
+      expect(pages.register.error()).to.equal('Password and confirmation did not match');
     });
   });
 
@@ -136,7 +137,7 @@ describe('User sees registration validation errors', function() {
       });
 
       it('shows an error message', function() {
-        pages.register.assertError('That username has already been taken');
+        expect(pages.register.error()).to.equal('That username has already been taken');
       });
     });
 
@@ -150,7 +151,7 @@ describe('User sees registration validation errors', function() {
       });
 
       it('shows an error message', function() {
-        pages.register.assertError('That email has already been taken');
+        expect(pages.register.error()).to.equal('That email has already been taken');
       });
     });
   });
@@ -175,7 +176,7 @@ describe('User sees login failure', function() {
     });
 
     it('shows an error message', function() {
-      pages.login.assertError('Invalid username or password');
+      expect(pages.login.error()).to.equal('Invalid username or password');
     });
   });
 
@@ -186,7 +187,7 @@ describe('User sees login failure', function() {
     });
 
     it('shows an error message', function() {
-      pages.login.assertError('Invalid username or password');
+      expect(pages.login.error()).to.equal('Invalid username or password');
     });
   });
 

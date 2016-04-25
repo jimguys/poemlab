@@ -15,12 +15,12 @@ module.exports = function loginPage(browser) {
       return browser.pressButton('Login');
     },
 
-    assertOnPage: function() {
-      browser.assert.text('h4', 'Welcome to Poemlab');
+    error: function() {
+      return browser.query('.error').textContent;
     },
 
-    assertError: function(error) {
-      browser.assert.text('.error', error);
+    assertOnPage: function() {
+      browser.assert.text('h4', 'Welcome to Poemlab');
     }
   }
 }

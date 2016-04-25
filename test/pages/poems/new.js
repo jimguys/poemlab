@@ -12,19 +12,16 @@ module.exports = function poemNewPage(browser) {
     },
 
     removePoet: function(i) {
-      return browser.click('.poet:nth-of-type(1)');
+      return browser.click('.poet:nth-of-type(' + i + ')');
     },
 
     start: function() {
       return browser.pressButton('Start Poem');
     },
 
-    assertPoet: function(i, name) {
-      browser.assert.text('.poet:nth-of-type(' + i + ')', name);
-    },
-
-    assertPoetCount: function(expected) {
-      browser.assert.elements('.poet', 1);
+    poet: function(i) {
+      var p = browser.query('.poet:nth-of-type(' + i + ')');
+      return p ? p.textContent : undefined;
     }
   };
 }
