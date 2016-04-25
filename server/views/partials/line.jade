@@ -1,4 +1,6 @@
 .line(data-line-id="#{line.id}").row
-  .column
+  .column.small-1
     .box(class="poet-color-#{line.poet.position % 5}")
-    span= line.text
+  .column
+    .line-text.editable(class="#{mine || line.poet.id===user.id ? 'mine' : ''}")
+      div= line.text

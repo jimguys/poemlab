@@ -16,9 +16,11 @@ block content
             include ../partials/line
         .row.column
           .newline-form(data-poem-id="#{poem.id}", data-poet-position="#{poetPosition}" data-poet-id="#{user.id}")
-            input.line-text(type="text", size=100, maxlength="200")
-            input.button.post-line(value="Post")
+            input.new-line-text(type="text", size=100, maxlength="200")
+            input.button.post-line(value="Post", disabled)
   script(src="/socket.io/socket.io.js")
   script(src="/js/vendor/jquery-1.10.2.min.js")
+  script $.fn.poshytip={defaults:null} //- fix for bug in x-editable: https://github.com/vitalets/x-editable/issues/496
+  script(src="/js/vendor/jquery-editable-poshytip.js")
   script(src="/js/partials.js")
   script(src="/js/poems/edit.js")

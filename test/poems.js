@@ -1,6 +1,7 @@
 const Browser = require('zombie');
 const portfinder = require('portfinder');
 const uuid = require('node-uuid');
+var expect = require('chai').expect;
 var browserReady = require('./shared/browser')();
 
 describe('User can setup an account and write a poem', function() {
@@ -116,12 +117,68 @@ describe('User can setup an account and write a poem', function() {
     });
 
     it('write a new line', function() {
-      browser.fill('.line-text', line);
+      browser.fill('.new-line-text', line);
       return browser.click('.post-line');
     });
 
     it('should show the line in the poem', function() {
       browser.assert.text('.line:nth-of-type(1)', line);
+    });
+  });
+
+  describe('users can edit their own lines', function() {
+    var line1 = uuid.v4();
+    var line2 = uuid.v4();
+
+    it('click the line', function() {
+      return browser.click('.line:nth-of-type(1) .line-text');
+    });
+
+    it('enter new text and submit', function() {
+      browser.fill('.editable-input input', line1 + 'edit');
+      return browser.click('.editable-submit');
+    });
+
+    it('should show the updated line', function() {
+      browser.assert.text('.line:nth-of-type(1)', line1 + 'edit');
+    });
+
+    it('switch to the first user', function() {
+      return browser.clickLink('logout').then(function() {
+        browser
+          .fill('username', testUser1)
+          .fill('password', testUser1 + 'password');
+        return browser.pressButton('Login');
+      });
+    });
+
+    it('post another line in the poem', function() {
+      return browser.clickLink('.poem:nth-of-type(1) a').then(function() {
+        browser.fill('.new-line-text', line2)
+        return browser.click('.post-line');
+      });
+    });
+
+    it('should show that line in the poem too', function() {
+      browser.assert.text('.line:nth-of-type(2)', line2);
+    });
+
+    it('should be able to edit the new line', function() {
+      return browser.click('.line:nth-of-type(2) .line-text').then(function() {
+        browser.fill('.editable-input input', line2 + 'edit');
+        return browser.click('.editable-submit');
+      });
+    });
+
+    it('should show both of the edited lines', function() {
+      browser.assert.text('.line:nth-of-type(1)', line1 + 'edit');
+      browser.assert.text('.line:nth-of-type(2)', line2 + 'edit');
+    });
+
+    it('should not be able to edit the first line, becaues it was posted by the other user', function() {
+      return browser.click('.line:nth-of-type(1) .line-text').then(function() {
+        expect(browser.query('.editable-submit')).not.to.exist;
+      });
     });
   });
 });

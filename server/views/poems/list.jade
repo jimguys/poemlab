@@ -5,7 +5,7 @@ block content
     h1 Poems
     ul
       each poem in poems
-        li
+        li.poem
           a(href="/poems/#{poem.id}")= poem.name
     hr
     a.button.new-poem(href="/poems/new") New Poem

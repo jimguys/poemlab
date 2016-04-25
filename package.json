@@ -15,6 +15,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt": "^0.8.5",
+    "chai": "^3.5.0",
     "connect-redis": "~1.4.5",
     "express": "~3.4.0",
     "jade": "*",

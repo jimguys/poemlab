@@ -77,8 +77,17 @@ module.exports = function poetsRepository(db) {
       });
     },
 
-    isPoetInPoem: function(poetId, poemId, callback) {
+    poetInPoem: function(poetId, poemId, callback) {
       db.query("select 1 from poets_poems where poem_id = $1 and poet_id = $2", [poemId, poetId],
+        function(err, result) {
+          if (err) { return callback(err); }
+          callback(null, result.rows.length > 0);
+        }
+      );
+    },
+
+    poetHasLine: function(poetId, lineId, callback) {
+      db.query("select 1 from lines where id = $1 and poet_id = $2", [lineId, poetId],
         function(err, result) {
           if (err) { return callback(err); }
           callback(null, result.rows.length > 0);

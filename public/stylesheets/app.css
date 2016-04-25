@@ -79,6 +79,67 @@ li {
   margin-bottom: 1em;
 }
 
+.poem-lines .line .small-1 {
+  max-width: 1.4em;
+  padding-right: 0;
+}
+
+.editable-click {
+  border-bottom: none;
+}
+
+.editable-container.editable-inline {
+  display: block;
+}
+
+.editable-input {
+  width: 100%;
+}
+
+.editable-input input {
+  border-color: #dedeed;
+  margin-bottom: 0;
+}
+
+.editable-input textarea {
+  border-color: #dedeed;
+  padding: .4em;
+  height: 6em;
+  margin-bottom: 0;
+}
+
+.editable-buttons button {
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 0.85em 1em;
+  margin: .4em .2em .2em 0;
+  font-size: 0.9rem;
+  background-color: #1f203d;
+  color: #fefefe;
+}
+
+.editable-buttons button:hover, .editable-buttons button:focus {
+  background-color: #1b3267;
+  color: #fefefe;
+}
+
+.editable-error {
+  margin: .5em 0;
+  padding: 1rem;
+  border: 1px solid rgba(10, 10, 10, 0.25);
+  border-radius: 3px;
+  position: relative;
+  color: #0a0a0a;
+  background-color: #fcd6d6;
+}
+
+input.button:disabled {
+  opacity: 0.65;
+  background-color: #1b3267;
+}
+
 .speak {
   margin-left: 1em;
   font-size: .4em;

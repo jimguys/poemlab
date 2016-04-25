@@ -26,10 +26,11 @@ module.exports = function(app, db, io) {
 
   app.get('/poems', poems.list);
   app.get('/poems/new', poems.createForm);
-  app.get('/poems/:id', auth.verifyPoetAccess(function(req){ return req.params.id; }), poems.edit);
+  app.get('/poems/:id', auth.verifyPoetPoemAccess(function(req){ return req.params.id; }), poems.edit);
   app.post('/poems', poems.create);
 
-  app.post('/lines', auth.verifyPoetAccess(function(req) { return req.body.poemId; }), lines.create);
+  app.post('/lines', auth.verifyPoetPoemAccess(function(req) { return req.body.poemId; }), lines.create);
+  app.post('/lines/:id', auth.verifyPoetLineAccess(function(req) { return req.body.pk; }), lines.edit);
 
   app.get('/poets', poets.search);
 };

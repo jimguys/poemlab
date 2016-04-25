@@ -20,14 +20,27 @@ module.exports = function authenticationService(poetsRepository) {
       });
     },
 
-    verifyPoetAccess: function(poemIdFunction) {
+    verifyPoetPoemAccess: function(poemIdFunction) {
       return function(req, res, next) {
         var poetId = req.user.id;
         var poemId = poemIdFunction(req);
 
-        poetsRepository.isPoetInPoem(poetId, poemId, function(err, isInPoem) {
+        poetsRepository.poetInPoem(poetId, poemId, function(err, isInPoem) {
           if (err) { return next(err); }
-          if (!isInPoem) { return res.send(403, 'not in poem: ' + poetId + ',' + poemId); }
+          if (!isInPoem) { return res.send(403); }
+          next();
+        });
+      };
+    },
+
+    verifyPoetLineAccess: function(lineIdFunction) {
+      return function(req, res, next) {
+        var poetId = req.user.id;
+        var lineId = lineIdFunction(req);
+
+        poetsRepository.poetHasLine(poetId, lineId, function(err, hasLine) {
+          if (err) { return next(err); }
+          if (!hasLine) { return res.send(403); }
           next();
         });
       };
