@@ -47,6 +47,11 @@ $(function() {
     lineTextInput.focus();
   });
 
+  socket.on('line-edited-for-poem-' + poem.id, function(poemLine) {
+    var lineDiv = $(jade.render('server/views/partials/line.jade', { line: poemLine, mine: true }));
+    $('.line[data-line-id=' + poemLine.id + ']').html(lineDiv.html());
+  });
+
   $('.post-line').on('click', postLine);
 
   $('.new-line-text').on('keyup', function() {
