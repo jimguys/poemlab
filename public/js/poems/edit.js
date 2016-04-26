@@ -7,6 +7,7 @@ $(function() {
   var lineTextInput = poemContainer.find('.new-line-text');
   var synth = window.speechSynthesis;
   var speech = synth && new SpeechSynthesisUtterance();
+  var isSpeaking = false;
 
   $.fn.editable.defaults.mode = 'inline';
 
@@ -81,6 +82,12 @@ $(function() {
   }
 
   $('.speak').click(function(event) {
+    if (isSpeaking) {
+      synth.cancel();
+      speaking(false);
+      return;
+    }
+
     var lines = $('.line').map(function() {
       return {
         id: $(this).data('line-id'),
@@ -89,19 +96,29 @@ $(function() {
     });
 
     var play = function(i) {
-      if (i < lines.length) {
-        $('.line[data-line-id=' + lines[i].id + ']').addClass('playing');
-        speech.text = lines[i].text;
-        speech.onend = function() {
-          setTimeout(function() {
-            $('.line').removeClass('playing');
-            play(i + 1);
-          }, 500);
-        };
-        synth.speak(speech);
+      if (lines === 0 || i >= lines.length || !isSpeaking) {
+        speaking(false);
+        return;
       }
+
+      $('.line[data-line-id=' + lines[i].id + ']').addClass('playing');
+      speech.text = lines[i].text;
+      speech.onend = function() {
+        setTimeout(function() {
+          $('.line').removeClass('playing');
+          play(i + 1);
+        }, 500);
+      };
+      synth.speak(speech);
     };
 
+    speaking(true);
     play(0);
   });
+
+  function speaking(active) {
+    isSpeaking = active;
+    $('.speak i').toggleClass('fi-volume', !active);
+    $('.speak i').toggleClass('fi-stop', active);
+  }
 });
