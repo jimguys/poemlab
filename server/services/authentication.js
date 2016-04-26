@@ -54,7 +54,7 @@ module.exports = function authenticationService(poetsRepository) {
       });
     } else {
       // old password hashing
-      callback(null, hash === crypto.createHash('sha256').update('password').digest('hex'));
+      callback(null, hash === crypto.createHash('sha256').update(password).digest('hex'));
     }
   }
 };
