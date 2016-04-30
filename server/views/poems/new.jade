@@ -1,19 +1,40 @@
 extends ../layout
 
 block content
-  .column.medium-6
+  .column
     h1 New Poem
     p Create a new poem
     form(action="/poems", method="post")
-      input(type="text", name="name", placeholder="Poem Name", size=50, maxlength="100" required)
-      div Poets in this poem:
       .row
         .column.medium-4
-          .poet-list
-            include ../partials/poets
-      input.poet-search.typeahead(type="text", placeholder="Add other poets")
-      hr
+          input(type="text", name="name", placeholder="Poem Name", size=50, maxlength="100" required)
+      .row
+        .column
+          fieldset
+            legend Poets in this poem
+            .poet-list
+              include ../partials/poets
+            input.poet-search.typeahead(type="text", placeholder="Add other poets")
+      .row
+        .column
+          fieldset
+            legend Poem rhythm
+            .row.align-middle
+              .column
+                .syllable-pad.button  
+                  i.fi-music
+                  div [space]
+                .newline-pad.button
+                  i.fi-arrow-down
+                  div [return]
+                .rhythm-play.badge.button
+                  i.fi-volume
+                .row
+                  .column
+                    .rhythm
+      div 
       input.button(type="submit", value="Start Poem")
 
   script(src="/js/vendor/typeahead.min.js")
+  script(src="/js/vendor/jquery.mobile-events.min.js")
   script(src="/js/poems/new.js")

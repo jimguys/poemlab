@@ -166,8 +166,60 @@ input.button:disabled {
   margin-right: .2em;
 }
 
+.syllable-pad, .newline-pad {
+  display: inline-block;
+  border-radius: .5em;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.syllable-pad i, .newline-pad i {
+  font-size: 1.3em;
+}
+
+.syllable-pad {
+  width: 8em;
+}
+
+.newline-pad {
+  margin-left: .5em;
+}
+
+.rhythm-play {
+  font-size: 1em;
+  margin-left: .5em;
+}
+
+.rhythm {
+  margin-top: .5em;
+}
+
+.rhythm .bar {
+  display: inline-block;
+  height: 1em;
+  background-color: #000;
+  border-radius: .2em;
+  margin-bottom: .2em;
+}
+
+.rhythm .rest {
+  display: inline-block;
+  height: 1em;
+  }
+
 .poet-color-0 { background-color: #33b5e5; }
 .poet-color-1 { background-color: #ffbb33; }
 .poet-color-2 { background-color: #99cc00; }
 .poet-color-3 { background-color: #aa66cc; }
 .poet-color-4 { background-color: #ff4444; }
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  border-radius: .2em;
+  margin: 0 0 1em 0;
+  padding: 0.35em 0.625em 0.5em 1em;
+}
