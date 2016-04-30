@@ -4,6 +4,7 @@ var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can reset a lost password', function() {
+  this.timeout(5000);
   var testUser = 'test-' + uuid.v4();
   var testUserEmail = testUser + '@poemlab.com';
   var emailLink;
