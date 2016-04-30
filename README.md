@@ -90,6 +90,8 @@ Deploying to dokku each time a change is made is a slow feedback loop for develo
   export DATABASE_URL=postgres://postgres:<password>@dokku.me:54321/poemlab
   export REDIS_URL=redis://dokku.me:63791/0
   export SESSION_KEY="secret key"
+  export SITE_BASE_URL="http://poemlab.meganoise.info"
+  export EMAIL_SMTP_TRANSPORT="smtps://user%40gmail.com:password@smtp.gmail.com"
   ```  
 
   4. You should now be able to run the project:
