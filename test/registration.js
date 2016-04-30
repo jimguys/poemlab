@@ -4,6 +4,7 @@ var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can create an account and login', function() {
+  this.timeout(8000);
   var testUser = 'test-' + uuid.v4();
 
   before(function() {
@@ -65,6 +66,7 @@ describe('User can create an account and login', function() {
 });
 
 describe('User sees registration validation errors', function() {
+  this.timeout(8000);
   var testUser = 'test-' + uuid.v4();
 
   before(function() {
@@ -158,6 +160,7 @@ describe('User sees registration validation errors', function() {
 });
 
 describe('User sees login failure', function() {
+  this.timeout(8000);
   var testUser = 'test-' + uuid.v4();
 
   before(function() {

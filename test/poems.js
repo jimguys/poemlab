@@ -4,6 +4,7 @@ var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can setup an account and write a poem', function() {
+  this.timeout(8000);
   var poemName = uuid.v4();
   var testUser1 = 'test-1-' + uuid.v4();
   var testUser2 = 'test-2-' + uuid.v4();
