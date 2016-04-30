@@ -84,6 +84,10 @@ li {
   padding-right: 0;
 }
 
+.line-text.mine {
+  cursor: pointer;
+}
+
 .editable-click {
   border-bottom: none;
 }
