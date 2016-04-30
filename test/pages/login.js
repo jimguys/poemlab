@@ -9,7 +9,7 @@ module.exports = function loginPage(browser) {
     },
 
     resetPassword: function() {
-      return browser.clickLink('Reset password');
+      return browser.clickLink('Forgot password?');
     },
 
     submit: function(username, password) {
