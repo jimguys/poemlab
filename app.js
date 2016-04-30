@@ -3,7 +3,9 @@ var http = require('http');
 var path = require('path');
 var jadeBrowser = require('jade-browser');
 var passportSocketIo = require("passport.socketio");
+var nodemailer = require('nodemailer');
 var RedisStore = require('connect-redis')(express);
+var redis = require('redis').createClient(process.env.REDIS_URL) ;
 
 var app = express();
 var server = http.createServer(app);
@@ -11,6 +13,9 @@ var io = require('socket.io').listen(server);
 var db = require('./db.js')(process.env.DATABASE_URL);
 var sessionStore = new RedisStore({ url: process.env.REDIS_URL });
 var sessionKey = process.env.SESSION_KEY;
+var mailerTransport = nodemailer.createTransport(process.env.EMAIL_SMTP_TRANSPORT === 'mock'
+  ? global.mockMailerTransport = require('nodemailer-mock-transport')()
+  : process.env.EMAIL_SMTP_TRANSPORT);
 
 io.set('log level', 1);
 
@@ -31,7 +36,7 @@ app.configure(function(){
 });
 
 // route registration
-require('./server/routes')(app, db, io);
+require('./server/routes')(app, db, redis, io, mailerTransport);
 
 // socket.io functionality
 require('./server/services/socket-events')(io,

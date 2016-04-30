@@ -23,14 +23,18 @@
     "mocha": "^2.4.5",
     "node-pg-migrate": "0.0.9",
     "node-uuid": "^1.4.7",
+    "nodemailer": "^2.3.2",
+    "nodemailer-mock-transport": "^1.2.0",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "passport.socketio": "~1.2.1",
     "pg": "~2.6.0",
     "portfinder": "^1.0.3",
+    "redis": "^2.5.3",
     "socket.io": "~0.9.16",
     "supervisor": "^0.10.0",
     "underscore": "~1.5.2",
+    "url-join": "^1.1.0",
     "zombie": "^4.2.1"
   }
 }

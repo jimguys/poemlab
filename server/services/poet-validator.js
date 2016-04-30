@@ -21,6 +21,8 @@ module.exports = function poetValidator(poetsRepository) {
 
   return {
 
+    emailLooksValid: emailLooksValid,
+
     validate: function(poet, callback) {
 
       var valid;

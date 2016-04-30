@@ -18,7 +18,7 @@ module.exports = function registerPage(browser) {
     },
 
     assertOnPage: function() {
-      browser.assert.text('h1', 'Poemlab Registration');
+      browser.assert.text('h4', 'Poemlab Registration');
     }
   };
 }

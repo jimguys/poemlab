@@ -8,6 +8,10 @@ module.exports = function loginPage(browser) {
       return browser.clickLink('Sign up');
     },
 
+    resetPassword: function() {
+      return browser.clickLink('Reset password');
+    },
+
     submit: function(username, password) {
       browser
         .fill('username', username)

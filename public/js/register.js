@@ -1,6 +1,6 @@
 $(function() {
 
-  $("#register").submit(function() {
+  $(".password-form").submit(function() {
 
     var password = $("input[name='password']").val();
     var confirmation = $("input[name='confirm']").val();

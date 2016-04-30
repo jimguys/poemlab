@@ -1,11 +1,11 @@
-extends layout
+extends ../layout
 
 block content
-  .column
-    h1 #{title} Registration
-    form#register(method="post", action="/register")
+  .column.medium-6
+    h4 #{title} Registration
+    form.password-form(method="post", action="/register")
       #errors
-        include partials/errors
+        include ../partials/errors
       p
         div
           input(type="text", name="username", placeholder="User name", value=user.username, required, maxlength="50")
@@ -19,6 +19,4 @@ block content
 
       input.button(type="submit", value="Sign Up")
 
-  script(src="/js/vendor/jquery-1.10.2.min.js")
-  script(src="/js/partials.js")
   script(src="/js/register.js")

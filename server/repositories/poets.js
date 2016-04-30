@@ -10,9 +10,13 @@ module.exports = function poetsRepository(db) {
     });
   }
 
+  function hashPassword(password, cb) {
+    bcrypt.hash(password, SALT_ROUNDS, cb);
+  }
+
   return {
     create: function(poet, callback) {
-      bcrypt.hash(poet.password, SALT_ROUNDS, function(err, passwordHash) {
+      hashPassword(poet.password, function(err, passwordHash) {
         if (err) { return callback(err); }
 
         db.query("insert into poets (username, email, password) values ($1, $2, $3) returning id",
@@ -23,6 +27,14 @@ module.exports = function poetsRepository(db) {
             callback(null, id);
           }
         );
+      });
+    },
+
+    changePassword: function(userId, password, callback) {
+      hashPassword(password, function(err, passwordHash) {
+        if (err) { return callback(err); }
+        db.query("update poets set password = $1 where id = $2",
+            [passwordHash, userId], callback);
       });
     },
 
