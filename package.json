@@ -6,7 +6,7 @@
     "node": "5.10.0"
   },
   "scripts": {
-    "start": "node_modules/.bin/supervisor app.js",
+    "start": "node app.js",
     "dev": "node_modules/.bin/supervisor -w . app.js",
     "migrate": "node_modules/.bin/pg-migrate up",
     "test": "node_modules/.bin/mocha",
@@ -18,7 +18,7 @@
     "chai": "^3.5.0",
     "connect-redis": "~1.4.5",
     "express": "~3.4.0",
-    "jade": "*",
+    "jade": "^1.11.0",
     "jade-browser": "~0.0.14",
     "mocha": "^2.4.5",
     "node-pg-migrate": "0.0.9",
