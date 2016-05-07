@@ -200,10 +200,21 @@ input.button:disabled {
 
 .rhythm .bar {
   display: inline-block;
+  position: relative;
   height: 1em;
-  background-color: #000;
+  background-color: #1f203d;
   border-radius: .2em;
   margin-bottom: .2em;
+}
+
+.rhythm .bar > span {
+  display: block;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: .2em;
+  background-color: #5c5fad;
+  width: 0;
 }
 
 .rhythm .rest {

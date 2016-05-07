@@ -74,7 +74,7 @@ $(function() {
     });
 
     $(document).on('keydown', function(e) {
-      if (e.which === 32 && !recordingRhythm) {
+      if (e.which === 32) {
         recordRhythmOn();
       }
     });
@@ -89,41 +89,64 @@ $(function() {
       playingRhythm = true;
       playbackStartTime = currentTime();
       playbackIndex = 0;
+      $('.rhythm .bar > span').css('width', 0);
     });
 
     function recordRhythmOn() {
+      if (recordingRhythm || playingRhythm)
+        return;
       if (recordingStartTime !== undefined) {
         $('.rhythm').append($('<div/>').addClass('rest').css('width', duration(recordingStartTime, 10)));
         playback.push({ duration: duration(recordingStartTime, 1), gain: 0 });
       }
-      $('.rhythm').append(recordingElement = $('<div/>').addClass('bar'));
+      $('.rhythm').append(recordingElement = $('<div/>').addClass('bar').append($('<span/>')));
       recordingStartTime = currentTime();
       recordingRhythm = true;
     }
 
     function recordRhythmOff() {
-      playback.push({ duration: duration(recordingStartTime, 1), gain: 0.8 });
+      if (playingRhythm)
+        return;
+      playback.push({ duration: duration(recordingStartTime, 1), gain: 0.8, bar: $('.rhythm .bar:last-child') });
       recordingStartTime = currentTime();
       recordingRhythm = false;
       gainNode.gain.value = 0;
     }
 
-    function getPlaybackGain(offset) {
-      if (playbackIndex >= playback.length) {
+    function setBarPercentage(offset) {
+      var element = playback[playbackIndex];
+      if (element === undefined)
+        return;
+      var bar = element.bar;
+      if (bar === undefined)
+        return;
+      var percentage = Math.min((offset / playback[playbackIndex].duration) * 100.0, 100);
+      bar.find('span').css('width', percentage + '%');
+
+    }
+
+    function advancePlaybackFrame(offset) {
+      if (playback[playbackIndex] === undefined) {
+        $('.rhythm .bar > span').css('width', 0);
         playingRhythm = false;
-        return 0;
-      }
-      if (currentTime() - playbackStartTime > playback[playbackIndex].duration) {
+      } else if (offset > playback[playbackIndex].duration) {
         playbackStartTime = currentTime();
         playbackIndex++;
-        return getPlaybackGain(offset);
       }
+    }
+
+    function getPlaybackGain() {
+      if (playback[playbackIndex] === undefined)
+        return 0;
       return playback[playbackIndex].gain;
     }
 
     setInterval(function() {
       if (playingRhythm) {
-        gainNode.gain.value = getPlaybackGain(currentTime() - playbackStartTime);
+        var offset = currentTime() - playbackStartTime;
+        setBarPercentage(offset);
+        advancePlaybackFrame(offset);
+        gainNode.gain.value = getPlaybackGain();
       } else if (recordingRhythm && recordingStartTime !== undefined){
         recordingElement.css('width', duration(recordingStartTime, 4));
         gainNode.gain.value = 0.8;
