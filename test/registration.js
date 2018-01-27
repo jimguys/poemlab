@@ -1,11 +1,11 @@
-const uuid = require('node-uuid');
+const uuid = require('uuid/v4');
 var expect = require('chai').expect;
 var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can create an account and login', function() {
   this.timeout(8000);
-  var testUser = 'test-' + uuid.v4();
+  var testUser = 'test-' + uuid();
 
   before(function() {
     return browserReady.then(function(b) {
@@ -67,7 +67,7 @@ describe('User can create an account and login', function() {
 
 describe('User sees registration validation errors', function() {
   this.timeout(8000);
-  var testUser = 'test-' + uuid.v4();
+  var testUser = 'test-' + uuid();
 
   before(function() {
     return pages.logout().then(function() {
@@ -133,7 +133,7 @@ describe('User sees registration validation errors', function() {
       before(function() {
         return pages.register.signup({
           username: testUser,
-          email: uuid.v4() + '@poemlab.com',
+          email: uuid() + '@poemlab.com',
           password: testUser + 'password'
         });
       });
@@ -146,7 +146,7 @@ describe('User sees registration validation errors', function() {
     describe('with email that is already taken', function() {
       before(function() {
         return pages.register.signup({
-          username: uuid.v4(),
+          username: uuid(),
           email: testUser + '@poemlab.com',
           password: testUser + 'password'
         });
@@ -161,7 +161,7 @@ describe('User sees registration validation errors', function() {
 
 describe('User sees login failure', function() {
   this.timeout(8000);
-  var testUser = 'test-' + uuid.v4();
+  var testUser = 'test-' + uuid();
 
   before(function() {
     return pages.register.signup({
@@ -175,7 +175,7 @@ describe('User sees login failure', function() {
 
   describe('for incorrect username', function() {
     before(function() {
-      return pages.login.submit(uuid.v4(), uuid.v4());
+      return pages.login.submit(uuid(), uuid());
     });
 
     it('shows an error message', function() {

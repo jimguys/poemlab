@@ -1,14 +1,14 @@
-const uuid = require('node-uuid');
+const uuid = require('uuid/v4');
 var expect = require('chai').expect;
 var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can setup an account and write a poem', function() {
   this.timeout(8000);
-  var poemName = uuid.v4();
-  var testUser1 = 'test-1-' + uuid.v4();
-  var testUser2 = 'test-2-' + uuid.v4();
-  var line = uuid.v4();
+  var poemName = uuid();
+  var testUser1 = 'test-1-' + uuid();
+  var testUser2 = 'test-2-' + uuid();
+  var line = uuid();
 
   describe('register a user and logout', function() {
     it('navigates to registration page', function() {
@@ -127,8 +127,8 @@ describe('User can setup an account and write a poem', function() {
   });
 
   describe('users can edit their own lines', function() {
-    var line1 = uuid.v4();
-    var line2 = uuid.v4();
+    var line1 = uuid();
+    var line2 = uuid();
 
     describe('edit a line', function() {
       before(function() {

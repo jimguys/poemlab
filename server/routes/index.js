@@ -5,7 +5,6 @@ module.exports = function(app, db, redis, io, mailerTransport) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(middleware.redirectBasedOnLoggedInStatus);
-  app.use(app.router);
 
   var poetsRepo = require('../repositories/poets')(db);
   var auth = require('../services/authentication')(poetsRepo);

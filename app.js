@@ -3,8 +3,14 @@ var http = require('http');
 var path = require('path');
 var passportSocketIo = require("passport.socketio");
 var nodemailer = require('nodemailer');
-var RedisStore = require('connect-redis')(express);
+var expressSession = require('express-session');
+var RedisStore = require('connect-redis')(expressSession);
 var redis = require('redis').createClient(process.env.REDIS_URL) ;
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
+var errorHandler = require('errorhandler');
 
 var app = express();
 var server = http.createServer(app);
@@ -20,18 +26,15 @@ io.set('log level', 1);
 
 app.set('port', process.env.PORT || 8088);
 app.set('views', path.join(__dirname, 'server/views'));
-app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.cookieParser());
-app.use(express.session({ store: sessionStore, secret: sessionKey }));
-app.use(express.methodOverride());
+app.set('view engine', 'pug');
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(expressSession({ store: sessionStore, secret: sessionKey,
+  resave: false, saveUninitialized: true }));
+app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.configure(function(){
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+app.use(errorHandler({ dumpExceptions: true, showStack: true }));
 
 // route registration
 require('./server/routes')(app, db, redis, io, mailerTransport);
@@ -58,7 +61,7 @@ server.listen(app.get('port'), function(){
 });
 
 io.set('authorization', passportSocketIo.authorize({
-  cookieParser: express.cookieParser,
+  cookieParser: cookieParser,
   key: 'connect.sid',
   secret: sessionKey,
   store: sessionStore,

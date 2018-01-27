@@ -1,11 +1,11 @@
-const uuid = require('node-uuid');
+const uuid = require('uuid/v4');
 var expect = require('chai').expect;
 var browserReady = require('./shared/browser')();
 var browser, pages;
 
 describe('User can reset a lost password', function() {
   this.timeout(8000);
-  var testUser = 'test-' + uuid.v4();
+  var testUser = 'test-' + uuid();
   var testUserEmail = testUser + '@poemlab.com';
   var emailLink;
 
@@ -98,7 +98,7 @@ describe('User can reset a lost password', function() {
     before(function() {
       return pages.passwordReset.visit().then(function() {
         return pages.passwordReset.submit({
-          email: uuid.v4() + '@poemlab.com'
+          email: uuid() + '@poemlab.com'
         });
       });
     });

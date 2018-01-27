@@ -43,13 +43,13 @@ $(function() {
   });
 
   socket.on('line-created-for-poem-' + poem.id, function(poemLine) {
-    var lineDiv = $(jade.render('server/views/partials/line.jade', { line: poemLine, mine: true }));
+    var lineDiv = $(pug.render('server/views/partials/line.jade', { line: poemLine, mine: true }));
     lineDiv.appendTo(linesContainer);
     lineTextInput.focus();
   });
 
   socket.on('line-edited-for-poem-' + poem.id, function(poemLine) {
-    var lineDiv = $(jade.render('server/views/partials/line.jade', { line: poemLine, mine: true }));
+    var lineDiv = $(pug.render('server/views/partials/line.jade', { line: poemLine, mine: true }));
     $('.line[data-line-id=' + poemLine.id + ']').html(lineDiv.html());
   });
 

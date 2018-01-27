@@ -20,7 +20,7 @@ $(function() {
 
   function showErrors(errors) {
     setTimeout(function() {
-      var errorHtml = $(jade.render('server/views/partials/errors.jade', {
+      var errorHtml = $(pug.render('server/views/partials/errors.jade', {
         errors: errors
       }));
       $('#errors').html(errorHtml);

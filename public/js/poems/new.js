@@ -27,7 +27,7 @@ $(function() {
   });
 
   function renderPoets() {
-    var div = $(jade.render('server/views/partials/poets.jade', {
+    var div = $(pug.render('server/views/partials/poets.jade', {
       poets: poets
     }));
     poetsList.html(div);
