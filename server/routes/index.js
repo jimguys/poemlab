@@ -14,9 +14,6 @@ module.exports = function(app, db, redis, io, mailerTransport) {
   var login = require('./login')(db);
   var register = require('./register')(db);
   var reset = require('./reset')(resetService);
-  var poems = require('./poems')(db);
-  var poets = require('./poets')(db);
-  var lines = require('./lines')(db, io);
 
   app.get('/', login.get);
   app.get('/login', login.get);
@@ -30,14 +27,4 @@ module.exports = function(app, db, redis, io, mailerTransport) {
 
   app.get('/register', register.get);
   app.post('/register', register.create);
-
-  app.get('/poems', poems.list);
-  app.get('/poems/new', poems.createForm);
-  app.get('/poems/:id', auth.verifyPoetPoemAccess(function(req){ return req.params.id; }), poems.edit);
-  app.post('/poems', poems.create);
-
-  app.post('/lines', auth.verifyPoetPoemAccess(function(req) { return req.body.poemId; }), lines.create);
-  app.post('/lines/:id', auth.verifyPoetLineAccess(function(req) { return req.body.pk; }), lines.edit);
-
-  app.get('/poets', poets.search);
 };

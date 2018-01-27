@@ -2,7 +2,7 @@ var pg = require('pg');
 var fs = require('fs');
 
 function exec(connectionString, file, callback) {
-  pg.connect(connectionString, function(err, client, done) {
+  pg.Pool({connectionString: connectionString}).connect(function(err, client, done) {
     if (err) { return callback(err); }
     var sql = fs.readFileSync(file, {encoding: 'utf-8'});
     console.log(sql);

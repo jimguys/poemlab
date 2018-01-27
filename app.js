@@ -1,7 +1,6 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var jadeBrowser = require('jade-browser');
 var passportSocketIo = require("passport.socketio");
 var nodemailer = require('nodemailer');
 var RedisStore = require('connect-redis')(express);
@@ -29,7 +28,6 @@ app.use(express.cookieParser());
 app.use(express.session({ store: sessionStore, secret: sessionKey }));
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(jadeBrowser('/js/partials.js', '/server/views/partials/**', { root: __dirname }));
 
 app.configure(function(){
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
