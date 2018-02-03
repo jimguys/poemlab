@@ -29,6 +29,7 @@ app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(expressSession({ store: sessionStore, secret: sessionKey,
   resave: false, saveUninitialized: true }));
